@@ -12,6 +12,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "IA PROJETO DELETAR DPS DE IMPLEMENTAR/**",
   ]),
 ]);
 

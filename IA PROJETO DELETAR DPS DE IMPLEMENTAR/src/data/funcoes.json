@@ -1,0 +1,303 @@
+[
+  {
+    "nome": "Missa Dominical com Santíssimo",
+    "numero": 1,
+    "missas_presentes": ["domingo", "com santissimo"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Saia de casa às 8h00 para chegar à sacristia às 8h30. A missa começa às 9h00. Isso garante tempo para organizar o altar, preparar o ostensório e aguardar o padre."
+      },
+      "como_fazer": {
+        "eh_decisao": true,
+        "pergunta": "Como será a missa?",
+        "opcoes": [
+          {
+            "titulo_opcao": "Rezada",
+            "conteudo": "Para missa rezada com Santíssimo:\n\n1. Prepare o corporal e coloque no altar\n2. Disponha o cálice com purificador\n3. Encha a âmbula com hóstias suficientes\n4. Após a Comunhão, reponha o Santíssimo no sacrário\n5. Ao final, faça a ablução dos vasos sagrados"
+          },
+          {
+            "titulo_opcao": "Cantada",
+            "conteudo": "Para missa cantada com Santíssimo:\n\n1. Prepare o incensário e a navicula com incenso\n2. Vista o véu umeral para a bênção final\n3. Coordene a entrada solene com o coral\n4. Realize a dupla incensação do altar no início\n5. Na exposição, faça a incensação tripla do Santíssimo"
+          }
+        ]
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Todo domingo às 9h00. Também nas primeiras sextas-feiras do mês em honra ao Sagrado Coração de Jesus e em solenidades do calendário litúrgico."
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Celebrante", "item": "Alva, casula e estola" },
+      { "pessoa": "Diácono", "item": "Alva, dalmática e estola" },
+      { "pessoa": "Acólito", "item": "Alva ou veste coral" },
+      { "pessoa": "Coroinha 1", "item": "Cruz processional" },
+      { "pessoa": "Coroinha 2", "item": "Castiçais laterais" },
+      { "pessoa": "Turiferário", "item": "Incensário e navicula" },
+      { "pessoa": "Leitor", "item": "Lecionário aberto na leitura" }
+    ],
+    "galeria": [
+      { "titulo": "Altar preparado", "link": "https://images.unsplash.com/photo-1687459730891-47dfa3217811?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Cruz do altar", "link": "https://images.unsplash.com/photo-1611483710387-ef44d3e39937?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Velas acesas", "link": "https://images.unsplash.com/photo-1495667496513-9068843d7679?w=700&h=500&fit=crop&auto=format" }
+    ]
+  },
+  {
+    "nome": "Missa Dominical",
+    "numero": 2,
+    "missas_presentes": ["domingo"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Saia de casa às 8h15 para chegar à sacristia às 8h45. A missa começa às 9h00. Organize os paramentos e prepare o altar com antecedência."
+      },
+      "como_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Para a Missa Dominical:\n\n1. Prepare o altar com toalha, castiçais e flores\n2. Coloque o cálice com patena, purificador e corporal\n3. Prepare a âmbula com hóstias\n4. Leve o lecionário ao ambão\n5. Verifique o microfone e o livro de cantos\n6. Aguarde o padre na sacristia para a oração inicial"
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Todo domingo às 9h00 e às 11h00. Verificar escala da equipe de liturgia para confirmação do horário de cada grupo."
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Celebrante", "item": "Alva, casula e estola" },
+      { "pessoa": "Acólito", "item": "Alva ou alba" },
+      { "pessoa": "Coroinha 1", "item": "Cruz processional" },
+      { "pessoa": "Coroinha 2", "item": "Castiçal direito" },
+      { "pessoa": "Coroinha 3", "item": "Castiçal esquerdo" },
+      { "pessoa": "Leitor", "item": "Lecionário" }
+    ],
+    "galeria": [
+      { "titulo": "Missa em andamento", "link": "https://images.unsplash.com/photo-1562445735-e038b568a0a0?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Livro e crucifixo", "link": "https://images.unsplash.com/photo-1527775978467-a86a78e8f791?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Cruz dourada", "link": "https://images.unsplash.com/photo-1470859685138-71dd60ed39b1?w=700&h=500&fit=crop&auto=format" }
+    ]
+  },
+  {
+    "nome": "Missa de Matrimônio",
+    "numero": 3,
+    "missas_presentes": ["especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Chegue à sacristia 1h antes do início. Casamentos geralmente começam às 16h ou 19h. Verifique o horário com antecedência na secretaria paroquial."
+      },
+      "como_fazer": {
+        "eh_decisao": true,
+        "pergunta": "Com ou sem Missa?",
+        "opcoes": [
+          {
+            "titulo_opcao": "Com Missa",
+            "conteudo": "Casamento com Missa:\n\n1. Prepare o altar completo com flores especiais\n2. Coloque o livro de matrimônio com marcador\n3. Prepare os anéis e alianças no altar\n4. Coordene a entrada dos noivos com a música\n5. Após as promessas, continue com a liturgia eucarística normalmente"
+          },
+          {
+            "titulo_opcao": "Sem Missa",
+            "conteudo": "Celebração do Matrimônio sem Missa:\n\n1. Prepare apenas o ambão e as cadeiras\n2. Coloque o livro de matrimônio aberto\n3. Organize os anéis e alianças\n4. Leitura, promessas, troca de alianças\n5. Bênção final e saída solene dos noivos"
+          }
+        ]
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Conforme agendamento na secretaria. Normalmente sábados às 15h, 16h ou 19h. Verificar disponibilidade do padre e da igreja com meses de antecedência."
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Celebrante", "item": "Alva, casula branca e estola" },
+      { "pessoa": "Noivo", "item": "Aliança da noiva" },
+      { "pessoa": "Noiva", "item": "Aliança do noivo" },
+      { "pessoa": "Padrinhos", "item": "Alianças suplentes" },
+      { "pessoa": "Acólito", "item": "Bandeja para alianças" },
+      { "pessoa": "Leitor", "item": "Livro de Matrimônio" }
+    ],
+    "galeria": [
+      { "titulo": "Altar do casamento", "link": "https://images.unsplash.com/photo-1518187544126-ae31d92f1b4a?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Velas do altar", "link": "https://images.unsplash.com/photo-1495667496513-9068843d7679?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Velas votivas", "link": "https://images.unsplash.com/photo-1573591013318-b942d6ea1092?w=700&h=500&fit=crop&auto=format" }
+    ]
+  },
+  {
+    "nome": "Missa de Sétimo Dia",
+    "numero": 4,
+    "missas_presentes": ["especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Chegue à sacristia 30 minutos antes. As missas de sétimo dia costumam ser às 19h30. Lembre-se de preparar o ambiente com discrição e respeito."
+      },
+      "como_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Para Missa de Sétimo Dia:\n\n1. Vista os paramentos roxos conforme o período litúrgico\n2. Prepare o altar sem flores exuberantes\n3. Coloque o livro de exéquias no ambão\n4. Disponha água benta e hissope para a absolvição final\n5. Após a missa, guie a família para o rito de absolvição"
+      },
+      "quando_fazer": {
+        "eh_decisao": true,
+        "pergunta": "Qual o período litúrgico?",
+        "opcoes": [
+          {
+            "titulo_opcao": "Tempo Comum",
+            "conteudo": "No Tempo Comum: paramentos roxos para missas de sufrágio. A missa pode ser qualquer dia da semana, normalmente marcada para o sétimo dia após o falecimento, geralmente às 19h30."
+          },
+          {
+            "titulo_opcao": "Tempo Pascal",
+            "conteudo": "No Tempo Pascal: mesmo sendo missa de sufrágio, os paramentos são brancos em sinal de ressurreição. A esperança cristã prevalece no ambiente litúrgico."
+          }
+        ]
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Celebrante", "item": "Alva, casula roxa e estola" },
+      { "pessoa": "Acólito", "item": "Alva" },
+      { "pessoa": "Coroinha", "item": "Castiçais laterais" },
+      { "pessoa": "Leitor", "item": "Livro de Exéquias" },
+      { "pessoa": "Ministro", "item": "Hissope e caldeirinha" },
+      { "pessoa": "Família", "item": "Foto do falecido" }
+    ],
+    "galeria": [
+      { "titulo": "Velas votivas", "link": "https://images.unsplash.com/photo-1573591013318-b942d6ea1092?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Castiçais", "link": "https://images.unsplash.com/photo-1476873282730-9018f17bdf4e?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Velas acesas", "link": "https://images.unsplash.com/photo-1495667496513-9068843d7679?w=700&h=500&fit=crop&auto=format" }
+    ]
+  },
+  {
+    "nome": "Missa Solene com Santíssimo",
+    "numero": 5,
+    "missas_presentes": ["com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Chegue 1h30 antes para organização completa do altar e preparação do incensário. Missas solenes exigem mais itens e coordenação com toda a equipe."
+      },
+      "como_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Para Missa Solene com Santíssimo:\n\n1. Prepare o incensário com carvão e incenso\n2. Organize o ostensório e o véu umeral\n3. Coloque flores e velas extras no altar\n4. Distribua funções: turiferário, naviculário, acólitos\n5. Coordene a procissão de entrada com cruz, velas e incenso\n6. Na consagração, toque o sino em cada elevação\n7. Realize a exposição solene ao final com bênção do Santíssimo"
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Solenidades do Calendário Litúrgico: Natal, Páscoa, Corpus Christi, Pentecostes, Assunção de Nossa Senhora e padroeiro da paróquia. Verificar o calendário com o pároco."
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Celebrante", "item": "Alva, casula dourada e estola" },
+      { "pessoa": "Diácono 1", "item": "Alva, dalmática e livro dos Evangelhos" },
+      { "pessoa": "Diácono 2", "item": "Alva, dalmática e navicula" },
+      { "pessoa": "Turiferário", "item": "Incensário e incenso" },
+      { "pessoa": "Acólito 1", "item": "Cruz processional" },
+      { "pessoa": "Acólito 2-3", "item": "Castiçais da procissão" },
+      { "pessoa": "Leitor", "item": "Lecionário solene" },
+      { "pessoa": "Cerimoneiro", "item": "Ordo e agenda" }
+    ],
+    "galeria": [
+      { "titulo": "Padre na missa", "link": "https://images.unsplash.com/photo-1553906451-86e5710d388e?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Altar com velas", "link": "https://images.unsplash.com/photo-1687459730891-47dfa3217811?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Cruz do altar", "link": "https://images.unsplash.com/photo-1611483710387-ef44d3e39937?w=700&h=500&fit=crop&auto=format" }
+    ]
+  },
+  {
+    "nome": "Missa de Crisma",
+    "numero": 6,
+    "missas_presentes": ["especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Chegue à sacristia 1h antes. A Crisma é presidida pelo Bispo, então toda a organização deve estar perfeita com 30min de antecedência ao início."
+      },
+      "como_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Para Missa de Crisma:\n\n1. Prepare o Santo Crisma em vasilha adequada\n2. Organize as cadeiras para os crismandos na frente\n3. Prepare algodão e purificadores para a unção\n4. Coordene a lista de crismandos com o padre\n5. Durante a celebração, guie os crismandos até o Bispo\n6. Após a unção, ofereça algodão para limpar a testa"
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Conforme agenda diocesana. Normalmente no segundo semestre do ano após o período de preparação. O Bispo da Diocese agenda as datas para cada paróquia."
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Bispo", "item": "Mitra, báculo e dalmática" },
+      { "pessoa": "Celebrante", "item": "Alva e casula vermelha" },
+      { "pessoa": "Cerimoneiro", "item": "Ordo e lista de crismandos" },
+      { "pessoa": "Ministro do Crisma", "item": "Santo Crisma e algodão" },
+      { "pessoa": "Acólito", "item": "Vela e alva" },
+      { "pessoa": "Crismandos", "item": "Vela e roupa branca" },
+      { "pessoa": "Padrinhos", "item": "Documento e presença" }
+    ],
+    "galeria": [
+      { "titulo": "Livro e crucifixo", "link": "https://images.unsplash.com/photo-1527775978467-a86a78e8f791?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Missa em andamento", "link": "https://images.unsplash.com/photo-1562445735-e038b568a0a0?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Cruz dourada", "link": "https://images.unsplash.com/photo-1470859685138-71dd60ed39b1?w=700&h=500&fit=crop&auto=format" }
+    ]
+  },
+  {
+    "nome": "Via Sacra com Santíssimo",
+    "numero": 7,
+    "missas_presentes": ["com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Chegue 45 minutos antes. A Via Sacra geralmente começa às 19h30 nas sextas-feiras da Quaresma. Prepare o caminho processional com antecedência."
+      },
+      "como_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Para Via Sacra com Santíssimo:\n\n1. Posicione as imagens das 14 estações pelo caminho\n2. Prepare a cruz pesada para o celebrante ou leigo\n3. Organize o incensário para a procissão\n4. Distribua os livretos da Via Sacra para os fiéis\n5. Ao final, realize a exposição breve do Santíssimo\n6. Termine com a bênção eucarística"
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Toda sexta-feira da Quaresma às 19h30. Especialmente na Sexta-feira Santa com Via Sacra solene às 15h00 em memória da morte de Jesus."
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Celebrante", "item": "Alva, capa coral e estola roxa" },
+      { "pessoa": "Acólito 1", "item": "Cruz processional pesada" },
+      { "pessoa": "Acólito 2", "item": "Castiçal processional" },
+      { "pessoa": "Turiferário", "item": "Incensário" },
+      { "pessoa": "Leitor", "item": "Livreto da Via Sacra" },
+      { "pessoa": "Fiéis", "item": "Livretos distribuídos" }
+    ],
+    "galeria": [
+      { "titulo": "Cruz do altar", "link": "https://images.unsplash.com/photo-1611483710387-ef44d3e39937?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Velas acesas", "link": "https://images.unsplash.com/photo-1495667496513-9068843d7679?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Castiçais", "link": "https://images.unsplash.com/photo-1476873282730-9018f17bdf4e?w=700&h=500&fit=crop&auto=format" }
+    ]
+  },
+  {
+    "nome": "Missa de Natal",
+    "numero": 8,
+    "missas_presentes": ["com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Chegue 2h antes para a Missa do Galo (23h) ou 1h para a Missa da Aurora (6h). O Natal exige decoração especial e coordenação de toda a equipe."
+      },
+      "como_fazer": {
+        "eh_decisao": true,
+        "pergunta": "Qual missa do Natal?",
+        "opcoes": [
+          {
+            "titulo_opcao": "Missa do Galo",
+            "conteudo": "Missa do Galo (meia-noite):\n\n1. Prepare o presépio ao lado do altar com o Menino Jesus\n2. Decore com ramos de azevinho e luzes\n3. Organize a procissão de entrada com o Menino Jesus\n4. O menino é colocado no presépio durante a missa\n5. Realize a adoração ao Santíssimo ao final"
+          },
+          {
+            "titulo_opcao": "Missa da Aurora",
+            "conteudo": "Missa da Aurora (6h da manhã):\n\n1. Prepare o altar de forma mais simples\n2. Mantenha a decoração natalina do Galo\n3. Procissão de entrada com hinos natalinos\n4. Comunhão com hóstias reservadas no Santíssimo\n5. Bênção final com ostensório"
+          }
+        ]
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "25 de dezembro: Missa do Galo à meia-noite do dia 24, Missa da Aurora às 6h e Missa do Dia às 10h. Todas com caráter solene."
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Celebrante", "item": "Alva, casula branca dourada" },
+      { "pessoa": "Diácono", "item": "Alva e dalmática branca" },
+      { "pessoa": "Acólito 1", "item": "Menino Jesus (imagem)" },
+      { "pessoa": "Acólito 2", "item": "Cruz processional" },
+      { "pessoa": "Acólito 3-4", "item": "Castiçais" },
+      { "pessoa": "Turiferário", "item": "Incensário e incenso" },
+      { "pessoa": "Coral", "item": "Hinos natalinos e cantata" }
+    ],
+    "galeria": [
+      { "titulo": "Cruz dourada", "link": "https://images.unsplash.com/photo-1470859685138-71dd60ed39b1?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Velas acesas", "link": "https://images.unsplash.com/photo-1495667496513-9068843d7679?w=700&h=500&fit=crop&auto=format" },
+      { "titulo": "Altar com velas", "link": "https://images.unsplash.com/photo-1687459730891-47dfa3217811?w=700&h=500&fit=crop&auto=format" }
+    ]
+  }
+]

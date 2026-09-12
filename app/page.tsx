@@ -1,69 +1,108 @@
-import Image from "next/image";
+/**
+ * @file app/page.tsx
+ * @description Página principal do Servire.
+ * 
+ * Orquestra os três fluxos centrais da aplicação:
+ * 1. Catálogo de Funções (HomeScreen)
+ * 2. Navegação Passo a Passo Guiada (WizardScreen)
+ * 3. Visão Completa Consolidada (FullInfoScreen)
+ * 
+ * Tudo envelopado dentro do MobileSafeContainer para proteção total contra
+ * barras superiores e inferiores dos navegadores móveis (Safari no iOS e Chrome no Android).
+ */
 
-export default function Home() {
+"use client";
+
+import React, { useState } from "react";
+import { Funcao } from "@/database";
+import { useWizard } from "@/hooks/useWizard";
+import { MobileSafeContainer } from "@/Components/layout/MobileSafeContainer";
+import { HomeScreen } from "@/Components/home/HomeScreen";
+import { WizardScreen } from "@/Components/wizard/WizardScreen";
+import { FullInfoScreen } from "@/Components/full-view/FullInfoScreen";
+
+type ActiveScreen = "home" | "wizard" | "full";
+
+export default function Page() {
+  const [screen, setScreen] = useState<ActiveScreen>("home");
+  const [selectedFunction, setSelectedFunction] = useState<Funcao | null>(null);
+
+  // Hook responsável por gerenciar estados e animações do Wizard
+  const {
+    step,
+    direction,
+    animKey,
+    decisions,
+    goNext,
+    goPrev,
+    goToStep,
+    setDecision,
+    resetWizard,
+  } = useWizard(0);
+
+  /**
+   * Abre a função selecionada iniciando o Wizard no passo 0
+   */
+  const handleOpenFunction = (fn: Funcao) => {
+    setSelectedFunction(fn);
+    resetWizard();
+    setScreen("wizard");
+  };
+
+  /**
+   * Retorna à tela inicial (catálogo)
+   */
+  const handleBackToHome = () => {
+    setScreen("home");
+  };
+
+  /**
+   * Abre a visualização consolidada de todos os passos
+   */
+  const handleViewAll = () => {
+    setScreen("full");
+  };
+
+  /**
+   * Retorna da visão completa de volta para o Wizard
+   */
+  const handleBackToWizard = () => {
+    setScreen("wizard");
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <MobileSafeContainer allowRootScroll={false}>
+      {/* 1. Tela Inicial: Catálogo e Busca */}
+      {screen === "home" && (
+        <HomeScreen onSelectFunction={handleOpenFunction} />
+      )}
+
+      {/* 2. Tela do Wizard: Navegação Passo a Passo */}
+      {screen === "wizard" && selectedFunction && (
+        <WizardScreen
+          fn={selectedFunction}
+          step={step}
+          direction={direction}
+          animKey={animKey}
+          decisions={decisions}
+          onDecide={setDecision}
+          onNext={goNext}
+          onPrev={goPrev}
+          onGoToStep={goToStep}
+          onBackToHome={handleBackToHome}
+          onViewAll={handleViewAll}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      )}
+
+      {/* 3. Tela de Visão Completa: Todos os Passos em Sequência */}
+      {screen === "full" && selectedFunction && (
+        <FullInfoScreen
+          fn={selectedFunction}
+          decisions={decisions}
+          onDecide={setDecision}
+          onBack={handleBackToWizard}
+        />
+      )}
+    </MobileSafeContainer>
   );
 }

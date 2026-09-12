@@ -1,0 +1,399 @@
+[
+  {
+    "nome": "Cruz",
+    "numero": 1,
+    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Assim que souber que está na função, levar a cruz no cantinho do lado da secretaria. 10 minutos antes de começar a missa, já se posicionar em frente à fila dos coroinhas."
+      },
+      "como_fazer": {
+        "eh_decisao": false,
+        "conteudo": "1. 10 minutos antes de começar a missa: já se posicionar em frente à fila dos coroinhas.\n2. Esperar a banda começar a cantar para iniciar a caminhada com a cruz erguida.\n3. Distância do turíbulo: quando tiver turíbulo, esperar um pouco para sair e tomar distância adequada (o turíbulo vai na frente da cruz).\n4. Ao chegar no presbitério: deixar a cruz de frente para a cadeira do padre."
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Na procissão de entrada (iniciando assim que a banda começar a cantar) e na procissão de saída ao término da celebração."
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Acólito / Coroinha", "item": "Cruz" }
+    ],
+    "galeria": [
+      { "titulo": "Cruz", "link": "https://i.postimg.cc/PJjXRpNF/imagem-capa-cruz.avif" },
+      { "titulo": "Presbitério", "link": "https://images.unsplash.com/photo-1687459730891-47dfa3217811?w=700&h=500&fit=crop&auto=format" }
+    ]
+  },
+  {
+    "nome": "Cadeiras",
+    "numero": 2,
+    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Não tem preparação"
+      },
+      "como_fazer": {
+        "eh_decisao": true,
+        "pergunta": "Qual cadeira você irá assumir?",
+        "opcoes": [
+          {
+            "titulo_opcao": "Cadeira do caique",
+            "conteudo": "Seu papel:\n\n- Apoiar o padre com os pedidos caso faça algum pra vc\n- Proatividade caso haja alguma falta de acolito em alguma função (exemplo pegar o calice caso não tenha colitos já posicionado esperando pra fazer isso)\n- Algumas vezes(se o padre pedir) montar o ofertorio\n- Segurar o microfone na hora da consagração\n    - Quando?\n        - Preste atenção a partir do momento que as oferendas já estiverem no altar, o momento de segurar é quando ele for levantar a hóstia magma e o cálice"
+          },
+          {
+            "titulo_opcao": "Cadeira do maurinho",
+            "conteudo": "Seu papel:\n\n- Apoiar o padre com os pedidos caso faça algum pra vc\n- Agua para o padre\n    - Ele irá te pedir, vc deve se agachar (do modo como a reverencia é feita) colocar agua caso não tenha/tenha pouca, entregar para ele, e aguardar em posição de reverecia, depois devolver pra de baixo do altar\n        - Dica: se possivel no ato de devolver encha o copo caso ele venha te pedir ou pegue novamente, faz com que seja mais rapido\n- Proatividade com pedidos do padre, geralmente são pedidos de pegar algo, chamar alguém, ou avisar alguém, ou até mesmo como a do caique de estar preparado para pegar o calice, biblia ou qualquer brecha deixada nas funções"
+          },
+          {
+            "titulo_opcao": "Cadeiras vizinhas as deles",
+            "conteudo": "Seu papel:\n\n- O foco fica em olhar os coroinhas e ajudar caso precisem\n- Proatividade para cobrir brechas de funções deixadas\n- Coroinhas podem ficar nessas cadeiras caso estjam vazias, geralmente coroinhas um pouco maiores ou alguns pedidos do padre"
+          }
+        ]
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Assim que chegar ao presbitério já se posicionar em frente ao seu lugar esperando pra fazer a reverencia."
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Cadeira Maurinho", "item": "Acólito" },
+      { "pessoa": "Cadeira Caique", "item": "Acólito" },
+      { "pessoa": "Cadeiras Vizinhas", "item": "Acólito / Coroinha" }
+    ],
+    "galeria": [
+      { "titulo": "Cadeiras do Presbitério", "link": "https://i.postimg.cc/zXdNnPSZ/imagem-capa-acadeiras.avif" },
+      { "titulo": "Nomes das cadeiras", "link": "https://i.postimg.cc/Sx3pP2vP/Nomes-das-cadeiras.avif" }
+    ]
+  },
+  {
+    "nome": "Bíblia",
+    "numero": 3,
+    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Não tem preparação, exceto decorar a ordem das leituras, que deve ser feita antes da missa começar"
+      },
+      "como_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Seu papel:\n\n- Apoiar os leitores:\n    - Passar as páginas\n    - Entregar microfone (interessante avisar se o microfone está ligado ou não)\n    - Caso algum leitor se perca, ajudá-lo\n- Se posicionar um passo atrás e ao lado do leitor\n    - Não é legal se posicionar literalmente do lado do leitor por 2 motivos:\n        - Deixa o leitor nervoso\n        - Isso vai atrapalhar a função da tocha"
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Terá entrada da bíblia ou não??\n\n- Para saber isso, basta olhar para o ambão (lugar onde fica a bíblia e os leitores leem) e ver se a bíblia está lá: se tiver, não terá entrada (ficar mais atento); se não tiver, terá entrada da bíblia.\n- Ou perguntar para o Caique, mas isso só se por algum motivo tiver em dúvida mesmo, a regra de ver se a bíblia está ou não geralmente não falha.\n\nQuando se posicionar do lado do ambão:\n\n• Com entrada da bíblia:\n- Esperar quem está entrando com a bíblia chegar um pouco depois da metade do corredor (da entrada da igreja para o presbitério)\n\n• Sem entrada da bíblia:\n- Quando o padre falar para pegar o santo livro"
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Ajudante do leitor", "item": "Acólito" }
+    ],
+    "galeria": [
+      { "titulo": "Bíblia no Ambão", "link": "https://i.postimg.cc/nrF8mvX4/imagem-capa-biblia.avif" },
+      { "titulo": "Ambão + posicionamento", "link": "https://i.postimg.cc/ryj2kYHz/Amba-o-posicionamento.avif" }
+    ]
+  },
+  {
+    "nome": "Tocha",
+    "numero": 4,
+    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "- Depende da quantidade de leituras e tamanho do salmo.\n- 3 leituras ou salmo pequeno/normal:\n    - Assim que começar o salmo\n- 4 leituras e com salmo tamanho grande:\n    - Na metade do salmo"
+      },
+      "como_fazer": {
+        "eh_decisao": true,
+        "pergunta": "Como será a missa?",
+        "opcoes": [
+          {
+            "titulo_opcao": "Missa normal",
+            "conteudo": "- O principal é feito pelas líderes que ficam aguardando você ou o coroinha\n- É só ir lá para a sacristia e esperar acenderem a vela, e aguardar acabar o salmo para entrar\n- Uma tocha fica do lado do ambão (lado porta), e a outra fica do lado do ambão do lado do círio pascal\n    - Recomendado que quem for na frente fique do lado da porta e quem for atrás do lado do círio pascal"
+          },
+          {
+            "titulo_opcao": "Missa com santissimo",
+            "conteudo": "- No começo do salmo por segurança já pode ir para a sacristia\n- O posicionamento será com o turíbulo, ficando nessa ordem:\n    - Tocha 1\n    - Naveta\n    - Turíbulo\n    - Tocha 2\n- Passo a passo do que acontece:\n    1. Todos entram em fila, com a Tocha 1 parando ao lado do altar (atrás das cadeiras dos coroinhas), a Tocha 2 para com uma distância que cabe as duas pessoas do turíbulo\n    2. Aguardar o processo do turíbulo\n    3. Ir para frente do altar todos na ordem da fila e fazer reverência\n    4. A tocha 1 fica do lado do ambão (lado porta), e a Tocha 2 fica do lado do ambão do lado do círio pascal"
+          }
+        ]
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Assim que terminar o salmo"
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Acólito, Coroinha", "item": "Tocha 1" },
+      { "pessoa": "Acólito, Coroinha", "item": "Tocha 2" }
+    ],
+    "galeria": [
+      { "titulo": "Imagem do ambão indicando onde fica cada tocha", "link": "https://i.postimg.cc/g2wC3c2g/Img-do-amba-o-idicando-onde-ficar-cada-tocha.avif" }
+    ]
+  },
+  {
+    "nome": "Ofertório",
+    "numero": 5,
+    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Quando o padre estiver na metade do creio após a homilia - (nem sempre temos o momento das intenções)"
+      },
+      "como_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Recomendado saber quem está responsável por todas as funções, caso a pessoa esqueça ou não esteja no presbitério, para colocar outra no lugar.\n\nDividido em 4 partes:\n- Itens do altar\n- Lavabo\n- O pão\n- Sino\n\nItens do altar:\n- Cálice na frente (acólito para levar se não tiver coroinha)\n- Âmbulas - se tiver (coroinhas levam - instruir eles a colocar a mão por cima da âmbula)\n- Galheta (acólito)\n\nLavabo:\nAssim que pegar o item já se posicionar.\n- Coroinha grande segurando a jarra\n- Coroinha com o pano\n- Coroinha com a bacia\n- O acólito acompanha os coroinhas até a hora que o padre chamar\nObs: ficar no meio entre a entrada da sacristia e o fim do presbitério\n\nPão:\nEsperar os ministros saírem para entregar a hóstia.\n- Acólito apenas acompanha e organiza\n- 2 coroinhas com o pão\n- Mezanino:\n    - Às vezes tem, às vezes não\n    - Se tiver, um acólito sobe e acompanha o coroinha"
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "- Itens do altar:\n    - Assim que pegar o item já se posicionar.\n- Lavabo:\n    - Assim que pegar o item já se posicionar.\n- O pão:\n    - Esperar os ministros saírem para entregar a hóstia.\n- Sino:\n    - Ficar atento depois do padre falar 'Santo, Santo'\n    - Tocar quando o padre falar 'Santificai'\n    - Depois no final das duas orações no momento em que todos têm que falar 'Meu Senhor e meu Deus, eu creio, mas aumentai a minha fé'\n        - OBS: o sino então deve ser tocado 3 vezes"
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Acólito (se não tiver, coroinha)", "item": "Cálice" },
+      { "pessoa": "Coroinha", "item": "Âmbulas" },
+      { "pessoa": "Acólito", "item": "Galheta" },
+      { "pessoa": "Coroinha", "item": "Jarra, Pano, Bacia" },
+      { "pessoa": "Acólito", "item": "Acompanhante lavabo" },
+      { "pessoa": "Acólito ou Coroinha grande", "item": "Acompanha o pão" },
+      { "pessoa": "2 Coroinhas", "item": "Pão" },
+      { "pessoa": "Acólito", "item": "Acompanha o pão Mezanino" },
+      { "pessoa": "Coroinha", "item": "Pão mezanino" }
+    ],
+    "galeria": [
+      { "titulo": "Ofertório", "link": "https://i.postimg.cc/VLvpcsn6/imagem-capa-ofertorio.avif" },
+      { "titulo": "Ofertório e sua ordem de distribuição", "link": "https://i.postimg.cc/kXHZMrvv/Ofertorio-e-sua-ordem-de-distribuic-a-o.avif" }
+    ]
+  },
+  {
+    "nome": "Galhetas",
+    "numero": 6,
+    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "- Quando o padre estiver na metade do creio após a homilia - (nem sempre temos o momento das intenções)\n- Mesmo horário do ofertório"
+      },
+      "como_fazer": {
+        "eh_decisao": false,
+        "conteudo": "- Se posicionar como último na fila\n    - Ordem da fila:\n        - 1 - Cálice\n        - 2 - Âmbolas\n        - 3 - Galheta\n- A galheta com vinho tem um 'V' nela e com água tem um 'A'\n- Se aproximar do altar, colocar as galhetas lá, colocar todo vinho, depois uma gota de água\n- Quando estiver voltando, deixe apenas a galheta com vinho na sacristia; a outra (que ainda terá água) deve ficar na credência (será usada depois dos ministros entregarem a hóstia para o padre 'lavar' o cálice)"
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Assim que receber a galheta já pode ficar posicionado no 'corredor' do lado direito (lado da bíblia) como último na fila"
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Acólito", "item": "Galheta" }
+    ],
+    "galeria": [
+      { "titulo": "Galhetas", "link": "https://i.postimg.cc/PJR6qZYf/imagem-capa-galheta.avif" }
+    ]
+  },
+  {
+    "nome": "Lavabo",
+    "numero": 7,
+    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "- Quando o padre estiver na metade do creio após a homilia - (nem sempre temos o momento das intenções)\n- Mesmo horário do ofertório"
+      },
+      "como_fazer": {
+        "eh_decisao": false,
+        "conteudo": "- Posicionar os coroinhas:\n    - Com jarra na esquerda\n    - Com bacia no meio\n    - Com pano na direita\n- Segurar os coroinhas para não irem ao padre antes da hora\n- Acompanhar e ir com os coroinhas até o padre\n- A função acontece em 2 horas:\n    - 1 - Quando após o padre montar os itens no altar para a consagração\n    - 2 - Após a comunhão depois dele desmontar tudo que está no altar\n- 1ª vez: Derramar a água que o padre lavou as mãos no balde da sacristia, passar o pano na bacia, montar novamente o lavabo, levar para a credência\n- 2ª vez: Derramar a água que o padre lavou as mãos no balde da sacristia, passar o pano na bacia, deixar na sacristia (não será usado novamente nessa missa)\n- Quando os ministros já estiverem voltando para o Altar, já prepara o Lavabo (2ª vez)"
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "- Assim que você receber o lavabo já chame os coroinhas e dê a cada um deles cada um dos itens do lavabo\n- Espere esvaziar um pouco para se posicionar no meio entre a credência e o altar\n- Quando o padre terminar de colocar o vinho e a água no cálice já se aproximar dele com os coroinhas, ele vai lavar as mãos e você deve voltar ATRÁS dos coroinhas"
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Coroinha um pouco maior", "item": "Jarro" },
+      { "pessoa": "Coroinhas médio / um pouco menor", "item": "Bacia" },
+      { "pessoa": "Coroinha menor / bem pequeno", "item": "Pano" }
+    ],
+    "galeria": [
+      { "titulo": "Lavabo", "link": "https://i.postimg.cc/JnTxTJTh/iagem-capa-lavabo.avif" },
+      { "titulo": "Onde se posicionar para esperar o padre colocar água e vinho no cálice", "link": "/IMG_1343.heic" }
+    ]
+  },
+  {
+    "nome": "Sino",
+    "numero": 8,
+    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "No meio do creio (após a homilia), pegar o sino e deixar com você onde você está sentado"
+      },
+      "como_fazer": {
+        "eh_decisao": true,
+        "pergunta": "Como será a missa?",
+        "opcoes": [
+          {
+            "titulo_opcao": "Missa normal",
+            "conteudo": "- Um toque curto quando o padre falar 'santificai'\n- Começar a tocar nas horas em que a assembleia deve falar 'meu senhor e meu deus eu creio mas aumentai a minha fé'\n- Parar de tocar quando o padre abaixar o cálice\n- Total de 3 toques (1 curto + 2 longos)"
+          },
+          {
+            "titulo_opcao": "Missa com santíssimo",
+            "conteudo": "- Assim que tiver na metade do creio ir pegar o sino e aguardar o turíbulo e naveta\n- Vocês devem aguardar na fila na ordem:\n    1. Naveta\n    2. Turíbulo\n    3. Sino\n- Vocês andarão até o padre, a não ser o sino que aguardará na direita até terminarem\n- Depois ainda mantendo a ordem da fila fazer reverência e se ajoelhar na frente do altar, na ordem da fila ainda (naveta em frente à cruz de entrada)\n- Um toque curto quando o padre falar 'santificai'\n- Começar a tocar nas horas em que a assembleia deve falar 'meu senhor e meu deus eu creio mas aumentai a minha fé'\n- Parar de tocar quando o padre abaixar o cálice\n- Total de 3 toques (1 curto + 2 longos)"
+          }
+        ]
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Horas explicadas em 'Como fazer a função'"
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Acólito", "item": "Sino" }
+    ],
+    "galeria": [
+      { "titulo": "Sino da Consagração", "link": "https://i.postimg.cc/3J01Bk24/Imagem-capa-sino.avif" },
+      { "titulo": "Missa com santíssimo ordem na hora de tocar o sino ajoelhado", "link": "/IMG_1345.heic" }
+    ]
+  },
+  {
+    "nome": "Pão",
+    "numero": 9,
+    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "- Quando o padre estiver na metade do creio após a homilia - (nem sempre temos o momento das intenções)\n- Mesmo horário do ofertório\n- Primeiro vai na sacristia para ver quantos pães são, com base nisso você saberá quantos coroinhas serão necessários"
+      },
+      "como_fazer": {
+        "eh_decisao": false,
+        "conteudo": "- Acólito apenas acompanha e organiza:\n    - Geralmente quem está com a função do pão acompanha caso não tenha coroinha grande para acompanhar\n    - Explicar para o coroinha grande quando ele deve voltar para o presbitério com os coroinhas (esperar o ministro — que fica na frente dele entregando a hóstia — parar de entregar a hóstia e voltar para o presbitério; aí sim pode voltar)\n- 2 coroinhas com o pão\n- Mezanino:\n    - Às vezes tem, às vezes não\n    - Se tiver, um acólito sobe e acompanha o coroinha"
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Esperar os ministros saírem para entregar a hóstia."
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Coroinha grande ou acólito", "item": "Acompanhando coroinhas - Andar de baixo" },
+      { "pessoa": "2 Coroinhas", "item": "Pão andar de baixo" },
+      { "pessoa": "Acólito", "item": "Acompanhando coroinhas - Andar de cima" },
+      { "pessoa": "Coroinha", "item": "Pão andar de cima" }
+    ],
+    "galeria": [
+      { "titulo": "Onde ficar no andar de baixo", "link": "/IMG_1343.heic" },
+      { "titulo": "Onde ficar no andar de cima", "link": "/IMG_1346.heic" }
+    ]
+  },
+  {
+    "nome": "Coleta",
+    "numero": 10,
+    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "- Não tem preparação\n- Recomenda-se saber quem é seu par e combinar um sinal ou algo do tipo para saberem quando ir"
+      },
+      "como_fazer": {
+        "eh_decisao": false,
+        "conteudo": "- Descer do altar fazendo genuflexão\n- Ir até o lugar para receber a coleta\n- Esperar seu par receber\n- Parar em frente ao presbitério, fazer genuflexão\n- Colocar a coleta do lado da bíblia (não o da cruz) embaixo do altar bem colado no altar; tem casos em que a coleta fica no meio da passagem atrapalhando, isso não é correto"
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "- Prestar atenção no pessoal que está fazendo a coleta\n- Quando eles estiverem passando pela escada (na hora da volta) sinalizar para seu par e descer do altar fazendo genuflexão"
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "2 Acólitos", "item": "Pegar as 2 coletas" }
+    ],
+    "galeria": [
+      { "titulo": "Coleta", "link": "https://i.postimg.cc/J7kkBBf0/Imagem-capa-coleta.png" },
+      { "titulo": "Onde ficar esperando a coleta", "link": "https://i.postimg.cc/gJ6nRfBM/Onde-ficar-esperando-a-coleta.jpg" },
+      { "titulo": "Onde deixar a coleta depois de pegar", "link": "https://i.postimg.cc/59LXtWzj/Onde-deixar-a-coleta-depois-de-pegar.jpg" }
+    ]
+  },
+  {
+    "nome": "Cubo e Ostensório",
+    "numero": 11,
+    "missas_presentes": ["com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Após a comunhão, dar um tempinho e ir para lá mais ou menos no começo que o padre der os avisos"
+      },
+      "como_fazer": {
+        "eh_decisao": true,
+        "pergunta": "Qual item você irá preparar?",
+        "opcoes": [
+          {
+            "titulo_opcao": "Cubo",
+            "conteudo": "- Cubo primeiro, colocar no centro do altar, e esticar o pano totalmente; se tiver bíblia/vela levantar e colocar em cima do pano"
+          },
+          {
+            "titulo_opcao": "Ostensório",
+            "conteudo": "- Esperar o cubo voltar\n- Posicionar ao lado do cubo, mais da metade para dentro do altar, e com a frente dele virada para cima"
+          }
+        ]
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "• Cubo:\nAssim que receber o cubo\n\n• Ostensório:\nApós o cubo voltar (você entra com o ostensório e espera na lateral o acólito terminar de montar o cubo)"
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Acólito", "item": "Cubo" },
+      { "pessoa": "Acólito", "item": "Ostensório" }
+    ],
+    "galeria": [
+      { "titulo": "Altar montado para adoração", "link": "/IMG_1343.heic" }
+    ]
+  },
+  {
+    "nome": "Roupa do Padre",
+    "numero": 12,
+    "missas_presentes": ["com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Após a comunhão, dar um tempinho e ir para lá mais ou menos no começo que o padre der os avisos"
+      },
+      "como_fazer": {
+        "eh_decisao": false,
+        "conteudo": "- A roupa do padre: deve-se formar uma fila na ordem que o padre veste a roupa\n- Antes de ir, verificar certinho como fechar a roupa\n- Ficar na lateral esperando o Caique assumir o microfone ou alguém chamar para colocar a roupa nele"
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Quando Caique ou alguém assumir o microfone"
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "3 Acólitos", "item": "Roupas" }
+    ],
+    "galeria": [
+      { "titulo": "Roupa do Padre", "link": "https://i.postimg.cc/8cSPvsvm/imagem-roupa-padre.avif" },
+      { "titulo": "Posicionamento na lateral para paramentar o padre", "link": "/IMG_1340.heic" }
+    ]
+  },
+  {
+    "nome": "Translado",
+    "numero": 13,
+    "missas_presentes": ["com santissimo", "especial"],
+    "conteudo": {
+      "quando_sair_para_preparar": {
+        "eh_decisao": false,
+        "conteudo": "Após a comunhão, dar um tempinho e ir para lá mais ou menos no começo que o padre der os avisos"
+      },
+      "como_fazer": {
+        "eh_decisao": false,
+        "conteudo": "- Pegar sino\n- Garantir que todos acólitos estejam com os sinos\n- Ir para a porta da sacristia e sair ficando em frente a ela, todos os acólitos"
+      },
+      "quando_fazer": {
+        "eh_decisao": false,
+        "conteudo": "Assim que o padre pegar o santíssimo para andar"
+      }
+    },
+    "pessoa_x_item": [
+      { "pessoa": "Acólitos", "item": "Sinos" }
+    ],
+    "galeria": [
+      { "titulo": "Translado do Santíssimo", "link": "https://i.postimg.cc/prRRT4NY/img-capa-translado.avif" },
+      { "titulo": "Lugar que deve esperar o padre começar a andar", "link": "https://i.postimg.cc/HkRm5VGF/Lugar-que-deve-esperar-o-padre-comec-ar-andar.avif" }
+    ]
+  }
+]
