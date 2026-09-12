@@ -13,9 +13,15 @@ export const metadata: Metadata = {
   title: "Servire - Guia de Funções Litúrgicas",
   description: "Guia prático e interativo passo a passo das funções litúrgicas da Igreja.",
   icons: {
-    icon: "/logo/logo.png",
-    shortcut: "/logo/logo.png",
-    apple: "/logo/logo.png",
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/logo/logo.png", type: "image/png" },
+    ],
+    shortcut: "/favicon-32x32.png",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   appleWebApp: {
     capable: true,
