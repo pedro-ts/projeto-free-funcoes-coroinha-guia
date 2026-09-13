@@ -1,12 +1,14 @@
 /**
  * @file app/adm/page.tsx
- * @description Painel Administrativo do Servire para criação interativa de funções litúrgicas,
- * upload automático de imagens via ImgBB e exportação/download de JSON pronto para o banco de dados.
+ * @description Painel Administrativo do Servire para criação e edição interativa de funções litúrgicas,
+ * upload inteligente de imagens (sem re-upload de URLs já existentes) via ImgBB, importação de JSON / arquivo,
+ * modal de ações pós-processamento (WhatsApp para o administrador, download do arquivo, copiar JSON e reabrir modal).
  */
 
 "use client";
 
-import React, { useState, useTransition } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import {
   IconArrowBack,
@@ -26,9 +28,23 @@ import {
   IconCamera,
 } from "@/Components/ui/AppIcon";
 import AppLogo from "@/Components/ui/AppLogo";
-import LiquidGlassWrapper from "@/Components/ui/LiquidGlassWrapper";
+import { getAllFuncoes } from "@/database/repository";
+import { Funcao } from "@/database/schema";
 
-// Tipagens do Contrato
+// Lista fixa de opções para a coluna Pessoa
+const OPCOES_PESSOA = [
+  "Acólito",
+  "Coroinha",
+  "Acólito e Coroinha",
+  "Prioridade ser Acólito",
+  "Prioridade ser Coroinha",
+  "Ministro",
+  "Padre",
+  "Leitor",
+  "Comentarista",
+] as const;
+
+// Tipagens do Formulário
 export interface OpcaoDecisaoForm {
   titulo_opcao: string;
   conteudo: string;
@@ -50,7 +66,8 @@ export interface GaleriaItemForm {
   id: string;
   titulo: string;
   file: File | null;
-  previewUrl: string;
+  previewUrl: string; // Base64 data:URL ou URL externa http
+  existingUrl?: string; // Se já veio de um JSON importado ou upload prévio
 }
 
 export interface FuncaoLiturgicaJSONFinal {
@@ -83,14 +100,17 @@ export interface FuncaoLiturgicaJSONFinal {
 }
 
 export default function AdminPage() {
+  // Lista de funções existentes para o select de posição/ordem
+  const [funcoesExistentes, setFuncoesExistentes] = useState<Funcao[]>([]);
+
   // Estado básico
   const [nome, setNome] = useState("");
-  const [numero, setNumero] = useState<number | "">("");
-  const [missasPresentes, setMissasPresentes] = useState<string[]>([
-    "domingo",
-    "com santissimo",
-  ]);
-  const [novaTag, setNovaTag] = useState("");
+  const [posicaoApos, setPosicaoApos] = useState<string>("final"); // "inicio", "final", ou "depois_<numero>"
+  const [numeroExplicito, setNumeroExplicito] = useState<number>(1);
+
+  // Checkboxes fixos de Missas Presentes
+  const [missaDomingo, setMissaDomingo] = useState(true);
+  const [missaSantissimo, setMissaSantissimo] = useState(true);
 
   // Estado de Imagem de Capa
   const [capaFile, setCapaFile] = useState<File | null>(null);
@@ -127,33 +147,60 @@ export default function AdminPage() {
   // Estado da Galeria
   const [galeria, setGaleria] = useState<GaleriaItemForm[]>([]);
 
-  // Estados de Operação / Processamento
+  // Estados de Operação / Processamento / Modal
   const [isProcessing, setIsProcessing] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [finalJsonResult, setFinalJsonResult] = useState<FuncaoLiturgicaJSONFinal | null>(null);
+  const [isActionModalOpen, setIsActionModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // --- Handlers de Tags ---
-  const handleAddTag = () => {
-    const trimmed = novaTag.trim().toLowerCase();
-    if (trimmed && !missasPresentes.includes(trimmed)) {
-      setMissasPresentes([...missasPresentes, trimmed]);
-      setNovaTag("");
+  // Estado de Importação de JSON
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+  const [importJsonText, setImportJsonText] = useState("");
+  const [importError, setImportError] = useState("");
+  const fileInputImportRef = useRef<HTMLInputElement>(null);
+
+  // Carrega funções cadastradas no banco de dados para o dropdown de ordenação
+  useEffect(() => {
+    setMounted(true);
+    try {
+      const list = getAllFuncoes();
+      setFuncoesExistentes(list);
+      // Por padrão, a nova função entra após a última
+      if (list.length > 0) {
+        setNumeroExplicito(list.length + 1);
+      }
+    } catch {
+      // Ignora erro se não carregar
     }
-  };
+  }, []);
 
-  const handleRemoveTag = (tagToRemove: string) => {
-    setMissasPresentes(missasPresentes.filter((t) => t !== tagToRemove));
-  };
+  // Recalcula o número com base na seleção de "Depois de qual função entrará"
+  useEffect(() => {
+    if (posicaoApos === "inicio") {
+      setNumeroExplicito(1);
+    } else if (posicaoApos === "final") {
+      const maxNum = funcoesExistentes.reduce((max, fn) => Math.max(max, fn.numero), 0);
+      setNumeroExplicito(maxNum + 1);
+    } else if (posicaoApos.startsWith("depois_")) {
+      const numBase = parseInt(posicaoApos.replace("depois_", ""), 10);
+      setNumeroExplicito(numBase + 1);
+    }
+  }, [posicaoApos, funcoesExistentes]);
 
-  // --- Handlers de Capa ---
+  // --- Handlers de Capa (com FileReader para data:URL estável) ---
   const handleCapaFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setCapaFile(file);
-      setCapaPreview(URL.createObjectURL(file));
       setCapaUrlExterna("");
+      const reader = new FileReader();
+      reader.onload = () => {
+        setCapaPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -179,15 +226,25 @@ export default function AdminPage() {
   };
 
   const handleGaleriaFileChange = (id: string, file: File | null) => {
-    setGaleria((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          const previewUrl = file ? URL.createObjectURL(file) : "";
-          return { ...item, file, previewUrl };
-        }
-        return item;
-      })
-    );
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result as string;
+      setGaleria((prev) =>
+        prev.map((item) => {
+          if (item.id === id) {
+            return {
+              ...item,
+              file,
+              previewUrl: dataUrl,
+              existingUrl: undefined, // sobrescreve url prévia com o novo arquivo
+            };
+          }
+          return item;
+        })
+      );
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleGaleriaTituloChange = (id: string, titulo: string) => {
@@ -198,7 +255,7 @@ export default function AdminPage() {
 
   // --- Handlers de Pessoa x Item ---
   const handleAddPessoaItem = () => {
-    setPessoaXItem([...pessoaXItem, { pessoa: "", item: "" }]);
+    setPessoaXItem([...pessoaXItem, { pessoa: "Acólito", item: "" }]);
   };
 
   const handleRemovePessoaItem = (index: number) => {
@@ -211,7 +268,7 @@ export default function AdminPage() {
     );
   };
 
-  // --- Funções Auxiliares de Upload ---
+  // --- Upload seguro para o ImgBB via rota interna ---
   const uploadSingleImage = async (file: File): Promise<string> => {
     const fd = new FormData();
     fd.append("file", file);
@@ -247,7 +304,7 @@ export default function AdminPage() {
     };
   };
 
-  // --- Submissão Principal ---
+  // --- Processamento e Envio ---
   const handleGerarObjeto = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
@@ -257,54 +314,62 @@ export default function AdminPage() {
       return;
     }
 
-    if (numero === "" || Number(numero) <= 0) {
-      setErrorMessage("Por favor, informe um Número de Função válido.");
-      return;
-    }
+    // Monta a lista de missas presentes a partir dos checkboxes
+    const missasTags: string[] = [];
+    if (missaDomingo) missasTags.push("domingo");
+    if (missaSantissimo) missasTags.push("com santissimo");
 
     try {
       setIsProcessing(true);
-      setStatusMessage("Preparando e validando dados...");
+      setStatusMessage("Preparando e verificando imagens...");
 
-      // 1. Upload da Capa (se houver arquivo local)
+      // 1. Capa: se tem arquivo local, faz upload; se tem capaUrlExterna (já existente), reutiliza sem re-upload!
       let finalCapaUrl = capaUrlExterna.trim();
       if (capaFile) {
         setStatusMessage("Enviando imagem de capa para o ImgBB...");
         finalCapaUrl = await uploadSingleImage(capaFile);
       }
 
-      // 2. Upload paralelo das fotos da galeria
+      // 2. Galeria: se o item já tem existingUrl, NÃO faz upload duplo; só sobe se for novo File
       const finalGaleria: { titulo: string; link: string }[] = [];
-      const filesToUpload = galeria.filter((g) => g.file !== null);
+      const newFilesToUpload = galeria.filter((g) => g.file !== null);
 
-      if (filesToUpload.length > 0) {
-        setStatusMessage(`Enviando ${filesToUpload.length} imagem(ns) da galeria...`);
-
-        const uploadPromises = galeria.map(async (item) => {
-          if (item.file) {
-            const uploadedUrl = await uploadSingleImage(item.file);
-            return {
-              titulo: item.titulo.trim() || "Foto de referência",
-              link: uploadedUrl,
-            };
-          }
-          return null;
-        });
-
-        const uploadedResults = await Promise.all(uploadPromises);
-        for (const res of uploadedResults) {
-          if (res) finalGaleria.push(res);
-        }
+      if (newFilesToUpload.length > 0) {
+        setStatusMessage(`Enviando ${newFilesToUpload.length} nova(s) imagem(ns) da galeria...`);
       }
 
-      setStatusMessage("Estruturando o objeto JSON final...");
+      const uploadPromises = galeria.map(async (item) => {
+        // Se tem arquivo novo, envia para a API
+        if (item.file) {
+          const uploadedUrl = await uploadSingleImage(item.file);
+          return {
+            titulo: item.titulo.trim() || "Foto de referência",
+            link: uploadedUrl,
+          };
+        }
+        // Se já tinha URL existente (de importação ou link prévio), reutiliza diretamente
+        if (item.existingUrl) {
+          return {
+            titulo: item.titulo.trim() || "Foto de referência",
+            link: item.existingUrl,
+          };
+        }
+        return null;
+      });
 
-      // 3. Monta o Objeto Final com o Schema Estrito
+      const uploadedResults = await Promise.all(uploadPromises);
+      for (const res of uploadedResults) {
+        if (res) finalGaleria.push(res);
+      }
+
+      setStatusMessage("Montando o objeto JSON final...");
+
+      // 3. Monta o Objeto Final
       const objetoFinal: FuncaoLiturgicaJSONFinal = {
         nome: nome.trim(),
-        numero: Number(numero),
+        numero: numeroExplicito,
         imagem_capa: finalCapaUrl || undefined,
-        missas_presentes: missasPresentes,
+        missas_presentes: missasTags,
         conteudo: {
           quando_sair_para_preparar: formatConteudoItem(quandoSair),
           como_fazer: formatConteudoItem(comoFazer),
@@ -320,30 +385,9 @@ export default function AdminPage() {
       };
 
       setFinalJsonResult(objetoFinal);
-
-      // 4. Dispara o download automático do JSON
-      const sanitizedName = nome
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]/g, "-")
-        .replace(/-+/g, "-")
-        .replace(/^-|-$/g, "");
-
-      const fileName = `funcao-${numero}-${sanitizedName || "objeto"}.json`;
-      const blob = new Blob([JSON.stringify(objetoFinal, null, 2)], {
-        type: "application/json;charset=utf-8",
-      });
-      const downloadUrl = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = downloadUrl;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(downloadUrl);
-
-      setStatusMessage("Concluído! Objeto gerado e download iniciado.");
+      // Abre o Modal com as opções (WhatsApp, Download, Copiar)
+      setIsActionModalOpen(true);
+      setStatusMessage("");
     } catch (err: unknown) {
       console.error(err);
       const msg = err instanceof Error ? err.message : "Falha ao processar o formulário.";
@@ -353,6 +397,32 @@ export default function AdminPage() {
     }
   };
 
+  // --- Função para Baixar o Arquivo JSON ---
+  const handleDownloadJson = () => {
+    if (!finalJsonResult) return;
+    const sanitizedName = (finalJsonResult.nome || "funcao")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "");
+
+    const fileName = `funcao-${finalJsonResult.numero}-${sanitizedName}.json`;
+    const blob = new Blob([JSON.stringify(finalJsonResult, null, 2)], {
+      type: "application/json;charset=utf-8",
+    });
+    const downloadUrl = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(downloadUrl);
+  };
+
+  // --- Função para Copiar o JSON ---
   const handleCopyJson = async () => {
     if (!finalJsonResult) return;
     try {
@@ -361,6 +431,152 @@ export default function AdminPage() {
       setTimeout(() => setCopied(false), 2500);
     } catch {
       // Fallback
+    }
+  };
+
+  // --- Função para Enviar para o Administrador via WhatsApp ---
+  const handleSendWhatsApp = () => {
+    if (!finalJsonResult) return;
+    const jsonStr = JSON.stringify(finalJsonResult, null, 2);
+    const mensagem = `Olá! Tenho uma sugestão de função litúrgica para o site Servire+:\n\n*${finalJsonResult.nome}* (Ordem: ${finalJsonResult.numero})\n\nConteúdo do objeto JSON:\n\`\`\`json\n${jsonStr}\n\`\`\``;
+    const encoded = encodeURIComponent(mensagem);
+    const whatsappUrl = `https://wa.me/5511985325391?text=${encoded}`;
+    window.open(whatsappUrl, "_blank");
+  };
+
+  // --- Importador de JSON para Edição ---
+  const applyImportedData = (data: any) => {
+    try {
+      if (!data || typeof data !== "object") {
+        throw new Error("Arquivo ou texto inválido.");
+      }
+
+      // 1. Nome e Ordem
+      if (data.nome) setNome(data.nome);
+      if (data.numero) {
+        setNumeroExplicito(data.numero);
+        // Tenta achar a função anterior para o select de ordem
+        const anterior = funcoesExistentes.find((f) => f.numero === data.numero - 1);
+        if (anterior) {
+          setPosicaoApos(`depois_${anterior.numero}`);
+        } else if (data.numero === 1) {
+          setPosicaoApos("inicio");
+        } else {
+          setPosicaoApos("final");
+        }
+      }
+
+      // 2. Tags de Missas
+      if (Array.isArray(data.missas_presentes)) {
+        setMissaDomingo(data.missas_presentes.includes("domingo"));
+        setMissaSantissimo(data.missas_presentes.includes("com santissimo"));
+      }
+
+      // 3. Imagem de Capa (reutiliza URL existente)
+      if (data.imagem_capa && typeof data.imagem_capa === "string") {
+        setCapaUrlExterna(data.imagem_capa);
+        setCapaPreview(data.imagem_capa);
+        setCapaFile(null);
+      } else {
+        setCapaUrlExterna("");
+        setCapaPreview("");
+        setCapaFile(null);
+      }
+
+      // 4. Conteúdo (quando sair, como fazer, quando fazer)
+      const parseConteudoItem = (item: any): ConteudoItemForm => {
+        if (!item) {
+          return {
+            eh_decisao: false,
+            conteudo: "",
+            pergunta: "",
+            opcoes: [{ titulo_opcao: "", conteudo: "" }],
+          };
+        }
+        if (item.eh_decisao) {
+          return {
+            eh_decisao: true,
+            conteudo: "",
+            pergunta: item.pergunta || "",
+            opcoes: Array.isArray(item.opcoes)
+              ? item.opcoes.map((op: any) => ({
+                  titulo_opcao: op.titulo_opcao || "",
+                  conteudo: op.conteudo || "",
+                }))
+              : [{ titulo_opcao: "", conteudo: "" }],
+          };
+        }
+        return {
+          eh_decisao: false,
+          conteudo: item.conteudo || "",
+          pergunta: "",
+          opcoes: [{ titulo_opcao: "", conteudo: "" }],
+        };
+      };
+
+      if (data.conteudo) {
+        setQuandoSair(parseConteudoItem(data.conteudo.quando_sair_para_preparar));
+        setComoFazer(parseConteudoItem(data.conteudo.como_fazer));
+        setQuandoFazer(parseConteudoItem(data.conteudo.quando_fazer));
+      }
+
+      // 5. Pessoa x Item
+      if (Array.isArray(data.pessoa_x_item) && data.pessoa_x_item.length > 0) {
+        setPessoaXItem(
+          data.pessoa_x_item.map((row: any) => ({
+            pessoa: row.pessoa || "Acólito",
+            item: row.item || "",
+          }))
+        );
+      }
+
+      // 6. Galeria (armazena link existente para não reenviar à API)
+      if (Array.isArray(data.galeria)) {
+        setGaleria(
+          data.galeria.map((g: any) => ({
+            id: Math.random().toString(36).substring(2, 9),
+            titulo: g.titulo || "",
+            file: null,
+            previewUrl: g.link || "",
+            existingUrl: g.link || "",
+          }))
+        );
+      }
+
+      setIsImportModalOpen(false);
+      setImportJsonText("");
+      setImportError("");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "JSON inválido";
+      setImportError(`Erro ao carregar dados: ${msg}`);
+    }
+  };
+
+  const handleImportFromFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(reader.result as string);
+        applyImportedData(parsed);
+      } catch {
+        setImportError("O arquivo selecionado não contém um formato JSON válido.");
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  const handleImportFromText = () => {
+    if (!importJsonText.trim()) {
+      setImportError("Por favor, cole o código JSON da função.");
+      return;
+    }
+    try {
+      const parsed = JSON.parse(importJsonText);
+      applyImportedData(parsed);
+    } catch {
+      setImportError("O texto colado não é um JSON válido. Verifique chaves e aspas.");
     }
   };
 
@@ -499,7 +715,7 @@ export default function AdminPage() {
   return (
     <div className="w-full min-h-screen bg-[#ece5ce] text-[#774f38] font-sans antialiased overflow-y-auto">
       {/* Barra de Topo */}
-      <header className="sticky top-0 z-40 w-full border-b border-white/80 bg-[#ece5ce]/80 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 w-full border-b border-white/80 bg-[#ece5ce]/85 backdrop-blur-xl">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link
@@ -512,30 +728,52 @@ export default function AdminPage() {
             <div className="flex items-center gap-2">
               <AppLogo variant="icon" height={26} />
               <span className="font-extrabold text-sm sm:text-base tracking-tight text-[#774f38]">
-                Gerador de JSON Administrativo
+                Gerador Administrativo
               </span>
             </div>
           </div>
 
-          <div className="px-3 py-1 rounded-full bg-[#f1d4af] text-[#774f38] text-xs font-black">
-            Painel /adm
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setIsImportModalOpen(true)}
+              className="px-3 py-1.5 rounded-full bg-white/90 hover:bg-white text-[#774f38] border border-white/90 text-xs font-extrabold flex items-center gap-1.5 shadow-xs cursor-pointer transition-all"
+              title="Importar função para editar"
+            >
+              <IconUpload size={14} />
+              <span>Importar Função</span>
+            </button>
+
+            {finalJsonResult && (
+              <button
+                type="button"
+                onClick={() => setIsActionModalOpen(true)}
+                className="px-3 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black flex items-center gap-1 shadow-xs cursor-pointer transition-all animate-bounce"
+                title="Reabrir opções da função gerada"
+              >
+                <IconCheck size={14} />
+                <span>Ver Opções</span>
+              </button>
+            )}
           </div>
         </div>
       </header>
 
       {/* Conteúdo Principal */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-6 pb-28">
-        <div className="mb-6">
-          <h1 className="text-xl sm:text-2xl font-black text-[#774f38]">
-            Cadastrar Nova Função Litúrgica
-          </h1>
-          <p className="text-xs sm:text-sm text-[#774f38]/80 mt-1 font-medium">
-            Preencha os campos abaixo, selecione as fotos do seu computador e gere o objeto formatado com upload automático das fotos no ImgBB.
-          </p>
+        <div className="mb-6 flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <h1 className="text-xl sm:text-2xl font-black text-[#774f38]">
+              Gerar ou Editar Função Litúrgica
+            </h1>
+            <p className="text-xs sm:text-sm text-[#774f38]/80 mt-1 font-medium">
+              Preencha os campos abaixo, faça upload de fotos e envie a sugestão diretamente para o administrador via WhatsApp ou baixe o arquivo.
+            </p>
+          </div>
         </div>
 
         {errorMessage && (
-          <div className="mb-6 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm flex items-start gap-3">
+          <div className="mb-6 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs sm:text-sm flex items-start gap-3 shadow-xs">
             <IconCancel size={18} className="flex-shrink-0 mt-0.5 text-rose-600" />
             <div>
               <p className="font-bold">Atenção</p>
@@ -545,7 +783,7 @@ export default function AdminPage() {
         )}
 
         {statusMessage && isProcessing && (
-          <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm flex items-center gap-3 animate-pulse">
+          <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm flex items-center gap-3 animate-pulse shadow-xs">
             <div className="w-4 h-4 rounded-full border-2 border-amber-600 border-t-transparent animate-spin" />
             <span className="font-bold">{statusMessage}</span>
           </div>
@@ -558,7 +796,7 @@ export default function AdminPage() {
               <span className="w-6 h-6 rounded-full bg-[#774f38] text-[#ece5ce] flex items-center justify-center text-xs">
                 1
               </span>
-              Identificação da Função
+              Identificação & Ordem da Função
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -577,20 +815,31 @@ export default function AdminPage() {
                 />
               </div>
 
+              {/* Posicionamento Específico: Depois de qual função entrará */}
               <div>
                 <label className="block text-xs font-bold text-[#774f38] mb-1">
-                  Número / Ordem *
+                  Depois de qual função entrará?
                 </label>
-                <input
-                  type="number"
-                  required
-                  min={1}
+                <select
                   disabled={isProcessing}
-                  value={numero}
-                  onChange={(e) => setNumero(e.target.value === "" ? "" : Number(e.target.value))}
-                  placeholder="Ex: 14"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#ece5ce] bg-white text-[#774f38] text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#e08e79]"
-                />
+                  value={posicaoApos}
+                  onChange={(e) => setPosicaoApos(e.target.value)}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#ece5ce] bg-white text-[#774f38] text-xs sm:text-sm font-bold focus:outline-none focus:ring-2 focus:ring-[#e08e79] cursor-pointer"
+                >
+                  <option value="inicio">No início (Será a função 1)</option>
+                  {funcoesExistentes.map((f) => (
+                    <option key={f.numero} value={`depois_${f.numero}`}>
+                      Depois da {f.numero}. {f.nome} (Será nº {f.numero + 1})
+                    </option>
+                  ))}
+                  <option value="final">
+                    No final (Depois de todas - Será nº{" "}
+                    {funcoesExistentes.reduce((max, fn) => Math.max(max, fn.numero), 0) + 1})
+                  </option>
+                </select>
+                <span className="block text-[11px] text-[#774f38]/60 mt-1 font-semibold">
+                  Ordem calculada: <strong>{numeroExplicito}</strong>
+                </span>
               </div>
             </div>
 
@@ -600,7 +849,7 @@ export default function AdminPage() {
                 Imagem de Capa (Opcional - Enviar Arquivo ou Inserir URL)
               </label>
               <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-                <label className="cursor-pointer px-4 py-2 rounded-xl bg-white border border-[#ece5ce] hover:bg-[#f1d4af]/30 text-xs font-bold text-[#774f38] flex items-center gap-2 transition-colors">
+                <label className="cursor-pointer px-4 py-2 rounded-xl bg-white border border-[#ece5ce] hover:bg-[#f1d4af]/30 text-xs font-bold text-[#774f38] flex items-center gap-2 transition-colors shadow-2xs">
                   <IconUpload size={16} />
                   <span>Escolher Foto de Capa</span>
                   <input
@@ -618,8 +867,12 @@ export default function AdminPage() {
                   type="url"
                   disabled={isProcessing || capaFile !== null}
                   value={capaUrlExterna}
-                  onChange={(e) => setCapaUrlExterna(e.target.value)}
-                  placeholder="URL externa (https://...)"
+                  onChange={(e) => {
+                    const url = e.target.value;
+                    setCapaUrlExterna(url);
+                    setCapaPreview(url);
+                  }}
+                  placeholder="URL externa existente (https://...)"
                   className="flex-1 px-3.5 py-2 rounded-xl border border-[#ece5ce] bg-white text-[#774f38] text-xs focus:outline-none focus:ring-2 focus:ring-[#e08e79]"
                 />
 
@@ -635,66 +888,55 @@ export default function AdminPage() {
                 )}
               </div>
 
-              {/* Preview da Capa */}
-              {(capaPreview || capaUrlExterna) && (
-                <div className="mt-3 relative w-24 h-24 rounded-xl overflow-hidden border border-white/80 shadow-xs">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={capaPreview || capaUrlExterna}
-                    alt="Preview capa"
-                    className="w-full h-full object-cover"
-                  />
+              {/* Preview Visível da Capa */}
+              {capaPreview && (
+                <div className="mt-3 flex items-center gap-3">
+                  <div className="relative w-28 h-24 rounded-2xl overflow-hidden border-2 border-white/90 shadow-md bg-white">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={capaPreview}
+                      alt="Preview capa"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                    Preview carregado
+                  </span>
                 </div>
               )}
             </div>
 
-            {/* Tags / Missas Presentes */}
+            {/* Tags Fixas: Domingo e Com Santíssimo */}
             <div>
               <label className="block text-xs font-bold text-[#774f38] mb-1.5">
-                Missas Presentes (Tags de Filtro)
+                Presença nas Missas (Selecione onde esta função se aplica)
               </label>
-              <div className="flex flex-wrap gap-2 items-center mb-2">
-                {missasPresentes.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 rounded-full bg-[#f1d4af] text-[#774f38] text-xs font-black flex items-center gap-1.5 shadow-xs"
-                  >
-                    #{tag}
-                    <button
-                      type="button"
-                      disabled={isProcessing}
-                      onClick={() => handleRemoveTag(tag)}
-                      className="hover:text-rose-600 cursor-pointer"
-                    >
-                      <IconCancel size={12} strokeWidth={2.5} />
-                    </button>
+              <div className="flex flex-wrap gap-4 items-center p-3 rounded-xl bg-white/60 border border-white/80">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    disabled={isProcessing}
+                    checked={missaDomingo}
+                    onChange={(e) => setMissaDomingo(e.target.checked)}
+                    className="w-4 h-4 rounded text-[#e08e79] focus:ring-[#e08e79] cursor-pointer"
+                  />
+                  <span className="text-xs sm:text-sm font-bold text-[#774f38]">
+                    Missa de Domingo
                   </span>
-                ))}
-              </div>
+                </label>
 
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  disabled={isProcessing}
-                  value={novaTag}
-                  onChange={(e) => setNovaTag(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      handleAddTag();
-                    }
-                  }}
-                  placeholder="Nova tag (ex: especial, santissimo, semana santa)"
-                  className="flex-1 px-3.5 py-2 rounded-xl border border-[#ece5ce] bg-white text-[#774f38] text-xs focus:outline-none focus:ring-2 focus:ring-[#e08e79]"
-                />
-                <button
-                  type="button"
-                  disabled={isProcessing}
-                  onClick={handleAddTag}
-                  className="px-3.5 py-2 rounded-xl bg-white border border-[#ece5ce] hover:bg-[#f1d4af]/40 text-xs font-bold text-[#774f38] cursor-pointer"
-                >
-                  Adicionar Tag
-                </button>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    disabled={isProcessing}
+                    checked={missaSantissimo}
+                    onChange={(e) => setMissaSantissimo(e.target.checked)}
+                    className="w-4 h-4 rounded text-[#e08e79] focus:ring-[#e08e79] cursor-pointer"
+                  />
+                  <span className="text-xs sm:text-sm font-bold text-[#774f38]">
+                    Com Santíssimo
+                  </span>
+                </label>
               </div>
             </div>
           </div>
@@ -757,15 +999,20 @@ export default function AdminPage() {
                   key={idx}
                   className="flex items-center gap-2 p-2.5 bg-white/70 rounded-xl border border-white/90 shadow-xs"
                 >
+                  {/* Select com as opções fixas */}
                   <div className="flex-1">
-                    <input
-                      type="text"
+                    <select
                       disabled={isProcessing}
                       value={row.pessoa}
                       onChange={(e) => handlePessoaItemChange(idx, "pessoa", e.target.value)}
-                      placeholder="Pessoa / Função (ex: Acólito, 2 Coroinhas)"
-                      className="w-full px-3 py-1.5 rounded-lg border border-[#ece5ce] bg-white text-xs sm:text-sm font-bold text-[#774f38] focus:outline-none focus:ring-2 focus:ring-[#e08e79]"
-                    />
+                      className="w-full px-3 py-2 rounded-lg border border-[#ece5ce] bg-white text-xs sm:text-sm font-bold text-[#774f38] focus:outline-none focus:ring-2 focus:ring-[#e08e79] cursor-pointer"
+                    >
+                      {OPCOES_PESSOA.map((op) => (
+                        <option key={op} value={op}>
+                          {op}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div className="flex-1">
@@ -775,7 +1022,7 @@ export default function AdminPage() {
                       value={row.item}
                       onChange={(e) => handlePessoaItemChange(idx, "item", e.target.value)}
                       placeholder="Item / Paramento (ex: Turíbulo, Naveta, Cálice)"
-                      className="w-full px-3 py-1.5 rounded-lg border border-[#ece5ce] bg-white text-xs sm:text-sm font-bold text-[#774f38] focus:outline-none focus:ring-2 focus:ring-[#e08e79]"
+                      className="w-full px-3 py-2 rounded-lg border border-[#ece5ce] bg-white text-xs sm:text-sm font-bold text-[#774f38] focus:outline-none focus:ring-2 focus:ring-[#e08e79]"
                     />
                   </div>
 
@@ -823,18 +1070,18 @@ export default function AdminPage() {
                   Nenhuma imagem adicionada à galeria.
                 </p>
                 <p className="text-[11px] text-[#774f38]/50 mt-0.5">
-                  Clique no botão acima para selecionar fotos do seu dispositivo.
+                  Clique no botão acima para adicionar fotos locais ou de links prévios.
                 </p>
               </div>
             ) : (
               <div className="space-y-3">
-                {galeria.map((item, idx) => (
+                {galeria.map((item) => (
                   <div
                     key={item.id}
                     className="p-3.5 bg-white/70 rounded-2xl border border-white/90 shadow-xs flex flex-col sm:flex-row gap-3 items-start sm:items-center"
                   >
-                    {/* Miniatura / Preview */}
-                    <div className="w-20 h-20 rounded-xl bg-[#f1d4af]/30 border border-[#ece5ce] overflow-hidden flex-shrink-0 flex items-center justify-center relative">
+                    {/* Miniatura / Preview Sempre Visível */}
+                    <div className="w-20 h-20 rounded-xl bg-[#f1d4af]/30 border border-[#ece5ce] overflow-hidden flex-shrink-0 flex items-center justify-center relative shadow-inner">
                       {item.previewUrl ? (
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img
@@ -858,7 +1105,7 @@ export default function AdminPage() {
                         className="w-full px-3 py-1.5 rounded-lg border border-[#ece5ce] bg-white text-xs sm:text-sm font-bold text-[#774f38] focus:outline-none focus:ring-2 focus:ring-[#e08e79]"
                       />
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <label className="cursor-pointer px-3 py-1.5 rounded-lg bg-white border border-[#ece5ce] hover:bg-[#f1d4af]/40 text-xs font-bold text-[#774f38] flex items-center gap-1.5 shadow-2xs">
                           <IconUpload size={14} />
                           <span>{item.file ? "Trocar Arquivo" : "Selecionar Arquivo"}</span>
@@ -873,9 +1120,16 @@ export default function AdminPage() {
                             className="hidden"
                           />
                         </label>
+
                         {item.file && (
                           <span className="text-[11px] font-semibold text-[#774f38]/80 truncate max-w-[200px]">
                             {item.file.name}
+                          </span>
+                        )}
+
+                        {item.existingUrl && !item.file && (
+                          <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                            URL Reutilizada (sem re-upload)
                           </span>
                         )}
                       </div>
@@ -921,7 +1175,7 @@ export default function AdminPage() {
           </div>
         </form>
 
-        {/* MODAL / CARD DE EXIBIÇÃO DO JSON FINAL */}
+        {/* VISUALIZADOR DE CÓDIGO NO FINAL DA PÁGINA (COM BOTÃO DE REABRIR MODAL) */}
         {finalJsonResult && (
           <div className="mt-10 p-6 rounded-[28px] apple-glass-card border border-emerald-500/30 shadow-xl space-y-4">
             <div className="flex items-center justify-between flex-wrap gap-2">
@@ -931,15 +1185,24 @@ export default function AdminPage() {
                 </div>
                 <div>
                   <h3 className="text-base font-black text-[#774f38]">
-                    Objeto JSON Gerado com Sucesso!
+                    Objeto JSON Gerado!
                   </h3>
                   <p className="text-xs text-[#774f38]/70 font-medium">
-                    O download automático do arquivo foi disparado. Você também pode copiar o conteúdo abaixo.
+                    Você pode copiar o código diretamente ou clicar em &quot;Abrir Opções de Compartilhamento&quot;.
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setIsActionModalOpen(true)}
+                  className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black flex items-center gap-1.5 shadow-xs cursor-pointer transition-colors"
+                >
+                  <IconCheck size={16} />
+                  <span>Abrir Opções de Envio</span>
+                </button>
+
                 <button
                   type="button"
                   onClick={handleCopyJson}
@@ -953,7 +1216,7 @@ export default function AdminPage() {
                   ) : (
                     <>
                       <IconCopy size={16} />
-                      <span>Copiar para Área de Transferência</span>
+                      <span>Copiar JSON</span>
                     </>
                   )}
                 </button>
@@ -967,6 +1230,241 @@ export default function AdminPage() {
           </div>
         )}
       </main>
+
+      {/* ========================================================================= */}
+      {/* MODAL DE AÇÕES PÓS-CONVERSÃO (WHATSAPP, DOWNLOAD, COPIAR, FECHAR) */}
+      {/* ========================================================================= */}
+      {mounted &&
+        isActionModalOpen &&
+        finalJsonResult &&
+        createPortal(
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="w-full max-w-lg rounded-[28px] apple-glass-card bg-[#ece5ce] border border-white p-6 shadow-2xl space-y-5 text-[#774f38]">
+              {/* Header do Modal */}
+              <div className="flex items-center justify-between border-b border-[#774f38]/15 pb-4">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                    <IconCheck size={20} strokeWidth={2.5} />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-black leading-tight">
+                      Função Pronta! O que deseja fazer?
+                    </h3>
+                    <p className="text-[11px] text-[#774f38]/70 font-semibold">
+                      Escolha uma das opções abaixo para sua função:
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setIsActionModalOpen(false)}
+                  className="w-8 h-8 rounded-full bg-white/80 hover:bg-white text-[#774f38] flex items-center justify-center cursor-pointer transition-colors"
+                  title="Fechar modal"
+                >
+                  <IconCancel size={16} strokeWidth={2.4} />
+                </button>
+              </div>
+
+              {/* Botões de Ação */}
+              <div className="space-y-3">
+                {/* 1. Mandar função para o administrador (WhatsApp) */}
+                <button
+                  type="button"
+                  onClick={handleSendWhatsApp}
+                  className="w-full p-4 rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white flex items-center justify-between font-black text-sm shadow-md transition-all cursor-pointer group"
+                >
+                  <div className="flex items-center gap-3 text-left">
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                      <svg
+                        className="w-5 h-5 fill-current"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="leading-tight">Mandar função para o administrador</p>
+                      <p className="text-[11px] text-white/80 font-normal">
+                        Envia sugestão via WhatsApp para (11) 98532-5391
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-lg">→</span>
+                </button>
+
+                {/* 2. Baixar arquivo da função (.json) */}
+                <button
+                  type="button"
+                  onClick={handleDownloadJson}
+                  className="w-full p-3.5 rounded-2xl bg-[#774f38] hover:bg-[#5f3e2b] text-white flex items-center justify-between font-black text-sm shadow-md transition-all cursor-pointer"
+                >
+                  <div className="flex items-center gap-3 text-left">
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                      <IconDownload size={18} />
+                    </div>
+                    <div>
+                      <p className="leading-tight">Baixar arquivo da função (.json)</p>
+                      <p className="text-[11px] text-white/70 font-normal">
+                        Salva o arquivo formatado em seu computador
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-lg">↓</span>
+                </button>
+
+                {/* 3. Copiar conteúdo para a área de transferência */}
+                <button
+                  type="button"
+                  onClick={handleCopyJson}
+                  className="w-full p-3.5 rounded-2xl bg-white hover:bg-white/90 text-[#774f38] border border-[#ece5ce] flex items-center justify-between font-black text-sm shadow-xs transition-all cursor-pointer"
+                >
+                  <div className="flex items-center gap-3 text-left">
+                    <div className="w-8 h-8 rounded-full bg-[#f1d4af]/50 flex items-center justify-center">
+                      {copied ? <IconCheck size={18} className="text-emerald-600" /> : <IconCopy size={18} />}
+                    </div>
+                    <div>
+                      <p className="leading-tight">
+                        {copied ? "Copiado com sucesso!" : "Copiar conteúdo da função"}
+                      </p>
+                      <p className="text-[11px] text-[#774f38]/60 font-normal">
+                        Copia todo o JSON pronto para colar onde precisar
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-xs font-bold text-[#e08e79]">
+                    {copied ? "OK" : "Copiar"}
+                  </span>
+                </button>
+              </div>
+
+              {/* Rodapé informativo */}
+              <div className="pt-1 flex items-center justify-between text-xs text-[#774f38]/70">
+                <span>Você pode fechar e reabrir este modal a qualquer momento.</span>
+                <button
+                  type="button"
+                  onClick={() => setIsActionModalOpen(false)}
+                  className="font-bold underline hover:text-[#774f38] cursor-pointer"
+                >
+                  Fechar
+                </button>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
+
+      {/* ========================================================================= */}
+      {/* MODAL DE IMPORTAÇÃO DE FUNÇÃO PARA EDIÇÃO */}
+      {/* ========================================================================= */}
+      {mounted &&
+        isImportModalOpen &&
+        createPortal(
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="w-full max-w-lg rounded-[28px] apple-glass-card bg-[#ece5ce] border border-white p-6 shadow-2xl space-y-4 text-[#774f38]">
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-[#774f38]/15 pb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-[#f1d4af] flex items-center justify-center text-[#774f38]">
+                    <IconUpload size={16} />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-black">Importar Função para Edição</h3>
+                    <p className="text-[11px] text-[#774f38]/70 font-semibold">
+                      Carregue um arquivo .json ou cole o código JSON da função
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsImportModalOpen(false);
+                    setImportError("");
+                  }}
+                  className="w-8 h-8 rounded-full bg-white/80 hover:bg-white text-[#774f38] flex items-center justify-center cursor-pointer transition-colors"
+                >
+                  <IconCancel size={16} strokeWidth={2.4} />
+                </button>
+              </div>
+
+              {importError && (
+                <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold">
+                  {importError}
+                </div>
+              )}
+
+              {/* Opção 1: Upload de Arquivo .json */}
+              <div>
+                <label className="block text-xs font-bold text-[#774f38] mb-1">
+                  1. Selecionar arquivo .json baixado anteriormente
+                </label>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => fileInputImportRef.current?.click()}
+                    className="px-4 py-2.5 rounded-xl bg-white border border-[#ece5ce] hover:bg-[#f1d4af]/30 text-xs font-black text-[#774f38] flex items-center gap-2 shadow-2xs cursor-pointer transition-colors"
+                  >
+                    <IconUpload size={15} />
+                    <span>Escolher Arquivo (.json)</span>
+                  </button>
+                  <input
+                    ref={fileInputImportRef}
+                    type="file"
+                    accept=".json,application/json"
+                    onChange={handleImportFromFile}
+                    className="hidden"
+                  />
+                  <span className="text-[11px] text-[#774f38]/60 font-semibold">
+                    Preencherá os campos automaticamente
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 my-1">
+                <div className="flex-1 h-px bg-[#774f38]/15" />
+                <span className="text-[11px] font-black text-[#774f38]/50 uppercase">ou</span>
+                <div className="flex-1 h-px bg-[#774f38]/15" />
+              </div>
+
+              {/* Opção 2: Colar Texto JSON */}
+              <div>
+                <label className="block text-xs font-bold text-[#774f38] mb-1">
+                  2. Colar código JSON diretamente
+                </label>
+                <textarea
+                  rows={6}
+                  value={importJsonText}
+                  onChange={(e) => setImportJsonText(e.target.value)}
+                  placeholder="Cole aqui o objeto JSON da função..."
+                  className="w-full p-3 rounded-xl border border-[#ece5ce] bg-white text-xs font-mono text-[#774f38] focus:outline-none focus:ring-2 focus:ring-[#e08e79] resize-y"
+                />
+              </div>
+
+              {/* Botões do Modal de Importação */}
+              <div className="flex items-center justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsImportModalOpen(false);
+                    setImportError("");
+                  }}
+                  className="px-4 py-2 rounded-xl bg-white/70 hover:bg-white text-xs font-bold text-[#774f38] cursor-pointer"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  onClick={handleImportFromText}
+                  className="px-5 py-2 rounded-xl bg-[#774f38] hover:bg-[#5f3e2b] text-white text-xs font-black shadow-xs cursor-pointer"
+                >
+                  Carregar Dados no Formulário
+                </button>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
     </div>
   );
 }
