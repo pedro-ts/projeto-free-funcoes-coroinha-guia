@@ -65,6 +65,8 @@ export interface Funcao {
   nome: string;
   /** Identificador numérico da função (1, 2, 3...) */
   numero: number;
+  /** Imagem de capa principal da função (URL) */
+  imagem_capa?: string;
   /** Tags das missas em que esta função se faz presente (ex: ['domingo', 'com santissimo']) */
   missas_presentes: string[];
   /** Conteúdo detalhado das etapas da função */

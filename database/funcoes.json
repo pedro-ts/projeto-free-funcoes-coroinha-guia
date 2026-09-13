@@ -2,7 +2,12 @@
   {
     "nome": "Cruz",
     "numero": 1,
-    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "imagem_capa": "https://i.postimg.cc/PJjXRpNF/imagem-capa-cruz.avif",
+    "missas_presentes": [
+      "domingo",
+      "com santissimo",
+      "especial"
+    ],
     "conteudo": {
       "quando_sair_para_preparar": {
         "eh_decisao": false,
@@ -18,17 +23,31 @@
       }
     },
     "pessoa_x_item": [
-      { "pessoa": "Acólito / Coroinha", "item": "Cruz" }
+      {
+        "pessoa": "Acólito / Coroinha",
+        "item": "Cruz"
+      }
     ],
     "galeria": [
-      { "titulo": "Cruz", "link": "https://i.postimg.cc/PJjXRpNF/imagem-capa-cruz.avif" },
-      { "titulo": "Presbitério", "link": "https://images.unsplash.com/photo-1687459730891-47dfa3217811?w=700&h=500&fit=crop&auto=format" }
+      {
+        "titulo": "Cruz",
+        "link": "https://i.postimg.cc/PJjXRpNF/imagem-capa-cruz.avif"
+      },
+      {
+        "titulo": "Presbitério",
+        "link": "https://images.unsplash.com/photo-1687459730891-47dfa3217811?w=700&h=500&fit=crop&auto=format"
+      }
     ]
   },
   {
     "nome": "Cadeiras",
     "numero": 2,
-    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "imagem_capa": "https://i.postimg.cc/zXdNnPSZ/imagem-capa-acadeiras.avif",
+    "missas_presentes": [
+      "domingo",
+      "com santissimo",
+      "especial"
+    ],
     "conteudo": {
       "quando_sair_para_preparar": {
         "eh_decisao": false,
@@ -58,19 +77,39 @@
       }
     },
     "pessoa_x_item": [
-      { "pessoa": "Cadeira Maurinho", "item": "Acólito" },
-      { "pessoa": "Cadeira Caique", "item": "Acólito" },
-      { "pessoa": "Cadeiras Vizinhas", "item": "Acólito / Coroinha" }
+      {
+        "pessoa": "Cadeira Maurinho",
+        "item": "Acólito"
+      },
+      {
+        "pessoa": "Cadeira Caique",
+        "item": "Acólito"
+      },
+      {
+        "pessoa": "Cadeiras Vizinhas",
+        "item": "Acólito / Coroinha"
+      }
     ],
     "galeria": [
-      { "titulo": "Cadeiras do Presbitério", "link": "https://i.postimg.cc/zXdNnPSZ/imagem-capa-acadeiras.avif" },
-      { "titulo": "Nomes das cadeiras", "link": "https://i.postimg.cc/Sx3pP2vP/Nomes-das-cadeiras.avif" }
+      {
+        "titulo": "Cadeiras do Presbitério",
+        "link": "https://i.postimg.cc/zXdNnPSZ/imagem-capa-acadeiras.avif"
+      },
+      {
+        "titulo": "Nomes das cadeiras",
+        "link": "https://i.postimg.cc/Sx3pP2vP/Nomes-das-cadeiras.avif"
+      }
     ]
   },
   {
     "nome": "Bíblia",
     "numero": 3,
-    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "imagem_capa": "https://i.postimg.cc/nrF8mvX4/imagem-capa-biblia.avif",
+    "missas_presentes": [
+      "domingo",
+      "com santissimo",
+      "especial"
+    ],
     "conteudo": {
       "quando_sair_para_preparar": {
         "eh_decisao": false,
@@ -86,17 +125,31 @@
       }
     },
     "pessoa_x_item": [
-      { "pessoa": "Ajudante do leitor", "item": "Acólito" }
+      {
+        "pessoa": "Ajudante do leitor",
+        "item": "Acólito"
+      }
     ],
     "galeria": [
-      { "titulo": "Bíblia no Ambão", "link": "https://i.postimg.cc/nrF8mvX4/imagem-capa-biblia.avif" },
-      { "titulo": "Ambão + posicionamento", "link": "https://i.postimg.cc/ryj2kYHz/Amba-o-posicionamento.avif" }
+      {
+        "titulo": "Bíblia no Ambão",
+        "link": "https://i.postimg.cc/nrF8mvX4/imagem-capa-biblia.avif"
+      },
+      {
+        "titulo": "Ambão + posicionamento",
+        "link": "https://i.postimg.cc/ryj2kYHz/Amba-o-posicionamento.avif"
+      }
     ]
   },
   {
     "nome": "Tocha",
     "numero": 4,
-    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "imagem_capa": "",
+    "missas_presentes": [
+      "domingo",
+      "com santissimo",
+      "especial"
+    ],
     "conteudo": {
       "quando_sair_para_preparar": {
         "eh_decisao": false,
@@ -122,17 +175,31 @@
       }
     },
     "pessoa_x_item": [
-      { "pessoa": "Acólito, Coroinha", "item": "Tocha 1" },
-      { "pessoa": "Acólito, Coroinha", "item": "Tocha 2" }
+      {
+        "pessoa": "Acólito, Coroinha",
+        "item": "Tocha 1"
+      },
+      {
+        "pessoa": "Acólito, Coroinha",
+        "item": "Tocha 2"
+      }
     ],
     "galeria": [
-      { "titulo": "Imagem do ambão indicando onde fica cada tocha", "link": "https://i.postimg.cc/g2wC3c2g/Img-do-amba-o-idicando-onde-ficar-cada-tocha.avif" }
+      {
+        "titulo": "Imagem do ambão indicando onde fica cada tocha",
+        "link": "https://i.postimg.cc/g2wC3c2g/Img-do-amba-o-idicando-onde-ficar-cada-tocha.avif"
+      }
     ]
   },
   {
     "nome": "Ofertório",
     "numero": 5,
-    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "imagem_capa": "https://i.postimg.cc/VLvpcsn6/imagem-capa-ofertorio.avif",
+    "missas_presentes": [
+      "domingo",
+      "com santissimo",
+      "especial"
+    ],
     "conteudo": {
       "quando_sair_para_preparar": {
         "eh_decisao": false,
@@ -148,25 +215,63 @@
       }
     },
     "pessoa_x_item": [
-      { "pessoa": "Acólito (se não tiver, coroinha)", "item": "Cálice" },
-      { "pessoa": "Coroinha", "item": "Âmbulas" },
-      { "pessoa": "Acólito", "item": "Galheta" },
-      { "pessoa": "Coroinha", "item": "Jarra, Pano, Bacia" },
-      { "pessoa": "Acólito", "item": "Acompanhante lavabo" },
-      { "pessoa": "Acólito ou Coroinha grande", "item": "Acompanha o pão" },
-      { "pessoa": "2 Coroinhas", "item": "Pão" },
-      { "pessoa": "Acólito", "item": "Acompanha o pão Mezanino" },
-      { "pessoa": "Coroinha", "item": "Pão mezanino" }
+      {
+        "pessoa": "Acólito (se não tiver, coroinha)",
+        "item": "Cálice"
+      },
+      {
+        "pessoa": "Coroinha",
+        "item": "Âmbulas"
+      },
+      {
+        "pessoa": "Acólito",
+        "item": "Galheta"
+      },
+      {
+        "pessoa": "Coroinha",
+        "item": "Jarra, Pano, Bacia"
+      },
+      {
+        "pessoa": "Acólito",
+        "item": "Acompanhante lavabo"
+      },
+      {
+        "pessoa": "Acólito ou Coroinha grande",
+        "item": "Acompanha o pão"
+      },
+      {
+        "pessoa": "2 Coroinhas",
+        "item": "Pão"
+      },
+      {
+        "pessoa": "Acólito",
+        "item": "Acompanha o pão Mezanino"
+      },
+      {
+        "pessoa": "Coroinha",
+        "item": "Pão mezanino"
+      }
     ],
     "galeria": [
-      { "titulo": "Ofertório", "link": "https://i.postimg.cc/VLvpcsn6/imagem-capa-ofertorio.avif" },
-      { "titulo": "Ofertório e sua ordem de distribuição", "link": "https://i.postimg.cc/kXHZMrvv/Ofertorio-e-sua-ordem-de-distribuic-a-o.avif" }
+      {
+        "titulo": "Ofertório",
+        "link": "https://i.postimg.cc/VLvpcsn6/imagem-capa-ofertorio.avif"
+      },
+      {
+        "titulo": "Ofertório e sua ordem de distribuição",
+        "link": "https://i.postimg.cc/kXHZMrvv/Ofertorio-e-sua-ordem-de-distribuic-a-o.avif"
+      }
     ]
   },
   {
     "nome": "Galhetas",
     "numero": 6,
-    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "imagem_capa": "https://i.postimg.cc/PJR6qZYf/imagem-capa-galheta.avif",
+    "missas_presentes": [
+      "domingo",
+      "com santissimo",
+      "especial"
+    ],
     "conteudo": {
       "quando_sair_para_preparar": {
         "eh_decisao": false,
@@ -182,16 +287,27 @@
       }
     },
     "pessoa_x_item": [
-      { "pessoa": "Acólito", "item": "Galheta" }
+      {
+        "pessoa": "Acólito",
+        "item": "Galheta"
+      }
     ],
     "galeria": [
-      { "titulo": "Galhetas", "link": "https://i.postimg.cc/PJR6qZYf/imagem-capa-galheta.avif" }
+      {
+        "titulo": "Galhetas",
+        "link": "https://i.postimg.cc/PJR6qZYf/imagem-capa-galheta.avif"
+      }
     ]
   },
   {
     "nome": "Lavabo",
     "numero": 7,
-    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "imagem_capa": "https://i.postimg.cc/JnTxTJTh/iagem-capa-lavabo.avif",
+    "missas_presentes": [
+      "domingo",
+      "com santissimo",
+      "especial"
+    ],
     "conteudo": {
       "quando_sair_para_preparar": {
         "eh_decisao": false,
@@ -207,19 +323,39 @@
       }
     },
     "pessoa_x_item": [
-      { "pessoa": "Coroinha um pouco maior", "item": "Jarro" },
-      { "pessoa": "Coroinhas médio / um pouco menor", "item": "Bacia" },
-      { "pessoa": "Coroinha menor / bem pequeno", "item": "Pano" }
+      {
+        "pessoa": "Coroinha um pouco maior",
+        "item": "Jarro"
+      },
+      {
+        "pessoa": "Coroinhas médio / um pouco menor",
+        "item": "Bacia"
+      },
+      {
+        "pessoa": "Coroinha menor / bem pequeno",
+        "item": "Pano"
+      }
     ],
     "galeria": [
-      { "titulo": "Lavabo", "link": "https://i.postimg.cc/JnTxTJTh/iagem-capa-lavabo.avif" },
-      { "titulo": "Onde se posicionar para esperar o padre colocar água e vinho no cálice", "link": "/IMG_1343.heic" }
+      {
+        "titulo": "Lavabo",
+        "link": "https://i.postimg.cc/JnTxTJTh/iagem-capa-lavabo.avif"
+      },
+      {
+        "titulo": "Onde se posicionar para esperar o padre colocar água e vinho no cálice",
+        "link": "/IMG_1343.heic"
+      }
     ]
   },
   {
     "nome": "Sino",
     "numero": 8,
-    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "imagem_capa": "https://i.postimg.cc/3J01Bk24/Imagem-capa-sino.avif",
+    "missas_presentes": [
+      "domingo",
+      "com santissimo",
+      "especial"
+    ],
     "conteudo": {
       "quando_sair_para_preparar": {
         "eh_decisao": false,
@@ -245,17 +381,31 @@
       }
     },
     "pessoa_x_item": [
-      { "pessoa": "Acólito", "item": "Sino" }
+      {
+        "pessoa": "Acólito",
+        "item": "Sino"
+      }
     ],
     "galeria": [
-      { "titulo": "Sino da Consagração", "link": "https://i.postimg.cc/3J01Bk24/Imagem-capa-sino.avif" },
-      { "titulo": "Missa com santíssimo ordem na hora de tocar o sino ajoelhado", "link": "/IMG_1345.heic" }
+      {
+        "titulo": "Sino da Consagração",
+        "link": "https://i.postimg.cc/3J01Bk24/Imagem-capa-sino.avif"
+      },
+      {
+        "titulo": "Missa com santíssimo ordem na hora de tocar o sino ajoelhado",
+        "link": "/IMG_1345.heic"
+      }
     ]
   },
   {
     "nome": "Pão",
     "numero": 9,
-    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "imagem_capa": "",
+    "missas_presentes": [
+      "domingo",
+      "com santissimo",
+      "especial"
+    ],
     "conteudo": {
       "quando_sair_para_preparar": {
         "eh_decisao": false,
@@ -271,20 +421,43 @@
       }
     },
     "pessoa_x_item": [
-      { "pessoa": "Coroinha grande ou acólito", "item": "Acompanhando coroinhas - Andar de baixo" },
-      { "pessoa": "2 Coroinhas", "item": "Pão andar de baixo" },
-      { "pessoa": "Acólito", "item": "Acompanhando coroinhas - Andar de cima" },
-      { "pessoa": "Coroinha", "item": "Pão andar de cima" }
+      {
+        "pessoa": "Coroinha grande ou acólito",
+        "item": "Acompanhando coroinhas - Andar de baixo"
+      },
+      {
+        "pessoa": "2 Coroinhas",
+        "item": "Pão andar de baixo"
+      },
+      {
+        "pessoa": "Acólito",
+        "item": "Acompanhando coroinhas - Andar de cima"
+      },
+      {
+        "pessoa": "Coroinha",
+        "item": "Pão andar de cima"
+      }
     ],
     "galeria": [
-      { "titulo": "Onde ficar no andar de baixo", "link": "/IMG_1343.heic" },
-      { "titulo": "Onde ficar no andar de cima", "link": "/IMG_1346.heic" }
+      {
+        "titulo": "Onde ficar no andar de baixo",
+        "link": "/IMG_1343.heic"
+      },
+      {
+        "titulo": "Onde ficar no andar de cima",
+        "link": "/IMG_1346.heic"
+      }
     ]
   },
   {
     "nome": "Coleta",
     "numero": 10,
-    "missas_presentes": ["domingo", "com santissimo", "especial"],
+    "imagem_capa": "https://i.postimg.cc/J7kkBBf0/Imagem-capa-coleta.png",
+    "missas_presentes": [
+      "domingo",
+      "com santissimo",
+      "especial"
+    ],
     "conteudo": {
       "quando_sair_para_preparar": {
         "eh_decisao": false,
@@ -300,18 +473,34 @@
       }
     },
     "pessoa_x_item": [
-      { "pessoa": "2 Acólitos", "item": "Pegar as 2 coletas" }
+      {
+        "pessoa": "2 Acólitos",
+        "item": "Pegar as 2 coletas"
+      }
     ],
     "galeria": [
-      { "titulo": "Coleta", "link": "https://i.postimg.cc/J7kkBBf0/Imagem-capa-coleta.png" },
-      { "titulo": "Onde ficar esperando a coleta", "link": "https://i.postimg.cc/gJ6nRfBM/Onde-ficar-esperando-a-coleta.jpg" },
-      { "titulo": "Onde deixar a coleta depois de pegar", "link": "https://i.postimg.cc/59LXtWzj/Onde-deixar-a-coleta-depois-de-pegar.jpg" }
+      {
+        "titulo": "Coleta",
+        "link": "https://i.postimg.cc/J7kkBBf0/Imagem-capa-coleta.png"
+      },
+      {
+        "titulo": "Onde ficar esperando a coleta",
+        "link": "https://i.postimg.cc/gJ6nRfBM/Onde-ficar-esperando-a-coleta.jpg"
+      },
+      {
+        "titulo": "Onde deixar a coleta depois de pegar",
+        "link": "https://i.postimg.cc/59LXtWzj/Onde-deixar-a-coleta-depois-de-pegar.jpg"
+      }
     ]
   },
   {
     "nome": "Cubo e Ostensório",
     "numero": 11,
-    "missas_presentes": ["com santissimo", "especial"],
+    "imagem_capa": "",
+    "missas_presentes": [
+      "com santissimo",
+      "especial"
+    ],
     "conteudo": {
       "quando_sair_para_preparar": {
         "eh_decisao": false,
@@ -337,17 +526,30 @@
       }
     },
     "pessoa_x_item": [
-      { "pessoa": "Acólito", "item": "Cubo" },
-      { "pessoa": "Acólito", "item": "Ostensório" }
+      {
+        "pessoa": "Acólito",
+        "item": "Cubo"
+      },
+      {
+        "pessoa": "Acólito",
+        "item": "Ostensório"
+      }
     ],
     "galeria": [
-      { "titulo": "Altar montado para adoração", "link": "/IMG_1343.heic" }
+      {
+        "titulo": "Altar montado para adoração",
+        "link": "/IMG_1343.heic"
+      }
     ]
   },
   {
     "nome": "Roupa do Padre",
     "numero": 12,
-    "missas_presentes": ["com santissimo", "especial"],
+    "imagem_capa": "https://i.postimg.cc/8cSPvsvm/imagem-roupa-padre.avif",
+    "missas_presentes": [
+      "com santissimo",
+      "especial"
+    ],
     "conteudo": {
       "quando_sair_para_preparar": {
         "eh_decisao": false,
@@ -363,17 +565,30 @@
       }
     },
     "pessoa_x_item": [
-      { "pessoa": "3 Acólitos", "item": "Roupas" }
+      {
+        "pessoa": "3 Acólitos",
+        "item": "Roupas"
+      }
     ],
     "galeria": [
-      { "titulo": "Roupa do Padre", "link": "https://i.postimg.cc/8cSPvsvm/imagem-roupa-padre.avif" },
-      { "titulo": "Posicionamento na lateral para paramentar o padre", "link": "/IMG_1340.heic" }
+      {
+        "titulo": "Roupa do Padre",
+        "link": "https://i.postimg.cc/8cSPvsvm/imagem-roupa-padre.avif"
+      },
+      {
+        "titulo": "Posicionamento na lateral para paramentar o padre",
+        "link": "/IMG_1340.heic"
+      }
     ]
   },
   {
     "nome": "Translado",
     "numero": 13,
-    "missas_presentes": ["com santissimo", "especial"],
+    "imagem_capa": "https://i.postimg.cc/prRRT4NY/img-capa-translado.avif",
+    "missas_presentes": [
+      "com santissimo",
+      "especial"
+    ],
     "conteudo": {
       "quando_sair_para_preparar": {
         "eh_decisao": false,
@@ -389,11 +604,20 @@
       }
     },
     "pessoa_x_item": [
-      { "pessoa": "Acólitos", "item": "Sinos" }
+      {
+        "pessoa": "Acólitos",
+        "item": "Sinos"
+      }
     ],
     "galeria": [
-      { "titulo": "Translado do Santíssimo", "link": "https://i.postimg.cc/prRRT4NY/img-capa-translado.avif" },
-      { "titulo": "Lugar que deve esperar o padre começar a andar", "link": "https://i.postimg.cc/HkRm5VGF/Lugar-que-deve-esperar-o-padre-comec-ar-andar.avif" }
+      {
+        "titulo": "Translado do Santíssimo",
+        "link": "https://i.postimg.cc/prRRT4NY/img-capa-translado.avif"
+      },
+      {
+        "titulo": "Lugar que deve esperar o padre começar a andar",
+        "link": "https://i.postimg.cc/HkRm5VGF/Lugar-que-deve-esperar-o-padre-comec-ar-andar.avif"
+      }
     ]
   }
 ]

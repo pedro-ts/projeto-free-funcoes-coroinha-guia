@@ -34,11 +34,15 @@ export function getFuncaoByNumero(numero: number): Funcao | undefined {
 }
 
 /**
- * Retorna a URL da imagem de capa de uma função (a primeira foto da galeria).
- * Caso não haja galeria, retorna uma string vazia como fallback.
+ * Retorna a URL da imagem de capa de uma função.
+ * Prioriza o campo dedicado `imagem_capa`; caso não esteja definido ou esteja vazio,
+ * utiliza a primeira foto da galeria como fallback.
  * @param fn Função litúrgica
  */
 export function getFuncaoCapaUrl(fn: Funcao): string {
+  if (fn.imagem_capa && fn.imagem_capa.trim() !== "") {
+    return fn.imagem_capa;
+  }
   return fn.galeria && fn.galeria.length > 0 ? fn.galeria[0].link : "";
 }
 
