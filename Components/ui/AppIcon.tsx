@@ -32,6 +32,13 @@ import {
   GridViewIcon,
   Menu01Icon,
   Home01Icon,
+  Upload01Icon,
+  Copy01Icon,
+  Download01Icon,
+  PlusSignIcon,
+  Delete02Icon,
+  File01Icon,
+  CodeIcon,
 } from "@hugeicons/core-free-icons";
 
 export interface IconProps {
@@ -187,6 +194,41 @@ export function IconZoomOut({ size = 20, color = "currentColor", className = "",
       <line x1="8" y1="11" x2="14" y2="11" />
     </svg>
   );
+}
+
+/** Ícone de Upload / Enviar */
+export function IconUpload({ size = 18, color = "currentColor", className = "", strokeWidth = 1.8 }: IconProps) {
+  return <HugeiconsIcon icon={Upload01Icon} size={size} color={color} className={className} strokeWidth={strokeWidth} />;
+}
+
+/** Ícone de Copiar */
+export function IconCopy({ size = 18, color = "currentColor", className = "", strokeWidth = 1.8 }: IconProps) {
+  return <HugeiconsIcon icon={Copy01Icon} size={size} color={color} className={className} strokeWidth={strokeWidth} />;
+}
+
+/** Ícone de Download / Baixar */
+export function IconDownload({ size = 18, color = "currentColor", className = "", strokeWidth = 1.8 }: IconProps) {
+  return <HugeiconsIcon icon={Download01Icon} size={size} color={color} className={className} strokeWidth={strokeWidth} />;
+}
+
+/** Ícone de Mais / Adicionar */
+export function IconPlus({ size = 18, color = "currentColor", className = "", strokeWidth = 1.8 }: IconProps) {
+  return <HugeiconsIcon icon={PlusSignIcon} size={size} color={color} className={className} strokeWidth={strokeWidth} />;
+}
+
+/** Ícone de Lixeira / Deletar */
+export function IconTrash({ size = 18, color = "currentColor", className = "", strokeWidth = 1.8 }: IconProps) {
+  return <HugeiconsIcon icon={Delete02Icon} size={size} color={color} className={className} strokeWidth={strokeWidth} />;
+}
+
+/** Ícone de Arquivo */
+export function IconFile({ size = 18, color = "currentColor", className = "", strokeWidth = 1.8 }: IconProps) {
+  return <HugeiconsIcon icon={File01Icon} size={size} color={color} className={className} strokeWidth={strokeWidth} />;
+}
+
+/** Ícone de Código JSON */
+export function IconCode({ size = 18, color = "currentColor", className = "", strokeWidth = 1.8 }: IconProps) {
+  return <HugeiconsIcon icon={CodeIcon} size={size} color={color} className={className} strokeWidth={strokeWidth} />;
 }
 
 /** Reset / Ajustar à Tela */
