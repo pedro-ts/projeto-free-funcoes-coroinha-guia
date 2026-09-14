@@ -102,17 +102,18 @@ export function WizardScreen({
       />
 
       {/*
-        ── 5. Botão Flutuante Redondo no Canto Inferior Esquerdo ──
+        ── 5. Botão Flutuante Redondo no Canto Esquerdo ──
+        Posicionado mais alto para facilitar o toque e não sobrepor setas ou áreas inferiores
       */}
-      <div className="absolute bottom-16 left-4 sm:bottom-20 sm:left-6 z-30 pointer-events-auto">
+      <div className="absolute top-28 left-4 sm:top-32 sm:left-6 z-30 pointer-events-auto">
         <button
           type="button"
           onClick={onViewAll}
-          className="w-14 h-14 rounded-full apple-glass-accent apple-touch shadow-2xl border border-white/80 flex items-center justify-center cursor-pointer text-white"
-          title="Ver Tudo (Visão Completa)"
-          aria-label="Ver Tudo (Visão Completa)"
+          className="w-13 h-13 sm:w-14 sm:h-14 rounded-full apple-glass-accent apple-touch shadow-2xl border border-white/85 flex items-center justify-center cursor-pointer text-white hover:scale-105 transition-transform"
+          title="Ver Completo (Visão Geral)"
+          aria-label="Ver Completo (Visão Geral)"
         >
-          <IconLayers size={24} strokeWidth={2.4} />
+          <IconLayers size={22} strokeWidth={2.4} />
         </button>
       </div>
     </div>
