@@ -32,10 +32,6 @@
       {
         "titulo": "Cruz",
         "link": "https://i.postimg.cc/PJjXRpNF/imagem-capa-cruz.avif"
-      },
-      {
-        "titulo": "Presbitério",
-        "link": "https://images.unsplash.com/photo-1687459730891-47dfa3217811?w=700&h=500&fit=crop&auto=format"
       }
     ]
   },
@@ -283,7 +279,7 @@
       },
       "quando_fazer": {
         "eh_decisao": false,
-        "conteudo": "Assim que receber a galheta já pode ficar posicionado no 'corredor' do lado direito (lado da bíblia) como último na fila"
+        "conteudo": "Será 2 vezes\n\n- Assim que receber a galheta já pode ficar posicionado no “corredor” do lado direito (lado da bíblia) como último na fila\n- Assim que comungar já pegar a galheta(de água) e esperar o padre chamar (essa hora é quando o padre começa a desmontar o altar)"
       }
     },
     "pessoa_x_item": [
@@ -343,7 +339,7 @@
       },
       {
         "titulo": "Onde se posicionar para esperar o padre colocar água e vinho no cálice",
-        "link": "/IMG_1343.heic"
+        "link": "https://i.postimg.cc/0yT77tXK/Whats-App-Image-2026-09-13-at-20-55-14.jpg"
       }
     ]
   },
@@ -393,14 +389,14 @@
       },
       {
         "titulo": "Missa com santíssimo ordem na hora de tocar o sino ajoelhado",
-        "link": "/IMG_1345.heic"
+        "link": "https://i.postimg.cc/HW656WPC/Whats-App-Image-2026-09-13-at-21-00-11.jpg"
       }
     ]
   },
   {
     "nome": "Pão",
     "numero": 9,
-    "imagem_capa": "",
+    "imagem_capa": "https://i.postimg.cc/KzJKpQfQ/Whats-App-Image-2026-09-13-at-21-01-15.jpg",
     "missas_presentes": [
       "domingo",
       "com santissimo",
@@ -440,12 +436,16 @@
     ],
     "galeria": [
       {
-        "titulo": "Onde ficar no andar de baixo",
-        "link": "/IMG_1343.heic"
+        "titulo": "Pão",
+        "link": "https://i.postimg.cc/KzJKpQfQ/Whats-App-Image-2026-09-13-at-21-01-15.jpg"
       },
       {
-        "titulo": "Onde ficar no andar de cima",
-        "link": "/IMG_1346.heic"
+        "titulo": "Onde ficar em baixo",
+        "link": "https://i.postimg.cc/4y0Ysdr7/Whats-App-Image-2026-09-13-at-21-03-06.jpg"
+      },
+      {
+        "titulo": "Onde ficar em cima",
+        "link": "https://i.postimg.cc/5NHHpBC0/Whats-App-Image-2026-09-13-at-21-03-09.jpg"
       }
     ]
   },
@@ -496,7 +496,7 @@
   {
     "nome": "Cubo e Ostensório",
     "numero": 11,
-    "imagem_capa": "",
+    "imagem_capa": "https://i.postimg.cc/SRnKT4JK/Whats-App-Image-2026-09-13-at-21-05-00.jpg",
     "missas_presentes": [
       "com santissimo",
       "especial"
@@ -538,7 +538,7 @@
     "galeria": [
       {
         "titulo": "Altar montado para adoração",
-        "link": "/IMG_1343.heic"
+        "link": "https://i.postimg.cc/SRnKT4JK/Whats-App-Image-2026-09-13-at-21-05-00.jpg"
       }
     ]
   },
@@ -570,16 +570,7 @@
         "item": "Roupas"
       }
     ],
-    "galeria": [
-      {
-        "titulo": "Roupa do Padre",
-        "link": "https://i.postimg.cc/8cSPvsvm/imagem-roupa-padre.avif"
-      },
-      {
-        "titulo": "Posicionamento na lateral para paramentar o padre",
-        "link": "/IMG_1340.heic"
-      }
-    ]
+    "galeria": []
   },
   {
     "nome": "Translado",
