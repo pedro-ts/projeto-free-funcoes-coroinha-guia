@@ -102,10 +102,10 @@ export function WizardScreen({
       />
 
       {/*
-        ── 5. Botão Flutuante Redondo no Canto Esquerdo ──
-        Posicionado mais alto para facilitar o toque e não sobrepor setas ou áreas inferiores
+        ── 5. Botão Flutuante Redondo no Canto Inferior Esquerdo ──
+        Posicionado um pouco mais alto para evitar conflito com a barra de navegação/gestos do sistema
       */}
-      <div className="absolute top-28 left-4 sm:top-32 sm:left-6 z-30 pointer-events-auto">
+      <div className="absolute bottom-24 left-4 sm:bottom-28 sm:left-6 z-30 pointer-events-auto">
         <button
           type="button"
           onClick={onViewAll}
